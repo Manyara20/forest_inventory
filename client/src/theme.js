@@ -19,6 +19,7 @@ export const theme = createTheme({
 
   typography: {
     fontFamily:[
+        'CerebriSans SemiBold',
       'Noto Sans JP',
       '-apple-system',
       'BlinkMacSystemFont',

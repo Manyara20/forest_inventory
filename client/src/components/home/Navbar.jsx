@@ -32,7 +32,7 @@ const Navbar = () => {
             paddingX: '7px',
         }}><Typography variant='body' sx={{
             fontSize: '1.25rem',
-            fontFamily: 'roboto',
+            fontFamily: 'CerebriSans SemiBold',
             color: 'white',
             fontWeight: 600
 
