@@ -3,19 +3,20 @@ import Navbar from "./components/home/Navbar"
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import Box from '@mui/material/Box';
 import Home from "./pages/home/Home";
+import { CssBaseline } from "@mui/material";
 
 function App() {
 
   const Layout =()=>{
     return(
-      <Box sx={{
-        paddingX: 0,
-        mx: 0
-      }}>
+      <>
+      < CssBaseline />
+      <Box >
       < Navbar/>
       < Outlet />
       < Footer/>
       </Box>
+      </>
     )
   };
 
