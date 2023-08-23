@@ -8,7 +8,10 @@ function App() {
 
   const Layout =()=>{
     return(
-      <Box>
+      <Box sx={{
+        paddingX: 0,
+        mx: 0
+      }}>
       < Navbar/>
       < Outlet />
       < Footer/>
