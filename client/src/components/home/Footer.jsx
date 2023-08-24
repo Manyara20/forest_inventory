@@ -21,11 +21,14 @@ const formattedDate = `${formattedDay}-${formattedMonth}-${year}`;
     <Box bgcolor='primary.alt' sx={{
       display: 'flex',
       flexDirection: 'column',
-      padding: '20px',
+      padding: '8px',
       alignItems: 'center',
       justifyContent: 'center',
     }}>
-      <Typography>{`Copyright @ ${formattedDate} All Rights Reserved BY | Kenya Forest Service`}</Typography>
+      <Typography sx={{
+        color: 'white',
+        fontWeight: 500
+      }}>{`Copyright @ ${formattedDate} All Rights Reserved BY | Kenya Forest Service`}</Typography>
     </Box>
   )
 }

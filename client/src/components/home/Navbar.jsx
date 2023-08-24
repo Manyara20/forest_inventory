@@ -25,6 +25,10 @@ const Navbar = () => {
         paddingY: '10px',
         alignItems: 'center',
         bgcolor: '#346a30',
+        position: 'sticky',
+        width: '100%',
+        top: 0,
+        zIndex: 999,
         height: {xs: '50px', sm: '60px'}
     }}>
         <Box sx={{
