@@ -4,6 +4,7 @@ import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import Box from '@mui/material/Box';
 import Home from "./pages/home/Home";
 import { CssBaseline } from "@mui/material";
+import UserRegistration from "./pages/users/UserRegistration";
 
 function App() {
 
@@ -29,6 +30,10 @@ function App() {
           path: "/",
           element: <Home />,
         },
+        {
+          path: "/registration",
+          element: <UserRegistration />,
+        }
       ],
     },
   ]);
