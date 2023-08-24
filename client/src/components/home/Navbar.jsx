@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Box, IconButton, Menu, MenuItem, Typography } from '@mui/material'
+import { Box, Button, ButtonGroup, IconButton, Menu, MenuItem, Typography } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom'
 
@@ -25,7 +25,7 @@ const Navbar = () => {
         paddingY: '10px',
         alignItems: 'center',
         bgcolor: '#346a30',
-        height: {xs: '30px', sm: '40px'}
+        height: {xs: '50px', sm: '60px'}
     }}>
         <Box sx={{
             display: 'block',
@@ -34,8 +34,8 @@ const Navbar = () => {
             fontSize: '1.25rem',
             fontFamily: 'CerebriSans SemiBold',
             color: 'white',
-            fontWeight: 600
-
+            fontWeight: 600,
+            whiteSpace: 'nowrap',
         }}>Plantation Management System</Typography></Box>
         <Box sx={{
             display: {xs: 'block', sm: 'none'},
@@ -84,17 +84,12 @@ const Navbar = () => {
             justifyContent: 'space-between',
             paddingX: '12px'
         }}>
-            <Link style={{
-                textDecoration: 'none',
-                fontWeight: '600',
-                color: 'white'
-            }}>Login</Link>
-            <Link style={{
-                textDecoration: 'none',
-                fontWeight: '600',
-                color: 'white'
-            }}>Logout</Link>
-        </Box>
+            <Box><ButtonGroup variant="contained" aria-label="outlined primary button group">
+                <Button>Login</Button>
+                <Button>Logout</Button>
+                </ButtonGroup>
+            </Box>
+            </Box>
     </Box>
   )
 }
