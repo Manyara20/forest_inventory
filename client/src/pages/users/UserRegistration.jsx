@@ -1,6 +1,11 @@
-import { Box, Container, Paper, Typography, useTheme } from '@mui/material'
+import { Box, Container, Card,Paper, CardContent, CardMedia,Typography, useTheme } from '@mui/material'
+// import { Box, Button, Card, CardActions, CardContent, CardMedia, Container, List, ListItem, ListItemText, Typography } from '@mui/material'
+
 import React, { useState } from 'react'
 import './UserRegistration.css'
+import image1 from '../../../src/assets/images/forest.jpg';
+// import Container from '@mui/material/Container';
+
 
 const UserRegistration = () => {
 
@@ -11,8 +16,9 @@ const UserRegistration = () => {
 
   return (
     <Container sx={{
-      width: '500px',
+      width: '2000px',
     }}>
+   
       <Paper elevation={1}>
         <Box border='5px solid white'  sx={{
           alignItems: 'center',
@@ -27,7 +33,23 @@ const UserRegistration = () => {
           fontWeight: 600,
         }} variant='h5'> Register Now</Typography>
         </Box> 
-        <form>
+        <Box>
+            <Card sx={{ display: 'flex',
+                flexDirection: {xs: 'column', sm: 'row'},
+                paddingBottom: '20px',
+                border: 'none',
+                boxShadow: 'none' }}>
+              <CardMedia sx={{flex: 1,
+                   paddingY: '25px',
+                  width: {xs: '100%', sm: '50%'},
+                  height: {xs: '200', sm: '400'}
+                  }}
+                component="img"
+                alt="green iguana"
+                image={image1}
+              />
+              <CardContent sx={{flex: 1}}>
+              <form>
           <div className='inputForm'>
           <label>Full Name</label>
           <input type="text" placeholder='Full Name' />
@@ -43,9 +65,21 @@ const UserRegistration = () => {
           <input type="password" placeholder='Password' />
           <label>Confirm Password</label>
           <input type="password" placeholder='Confirm Password' />
-          <input type="checkbox"  name="confirmTerms" value="true"></input>
+          
+            <div className='certify'><label><input type="checkbox"  name="confirmTerms" value="true"></input>
+          :The information you provide shall be solely used for this purpose and will not be disclosed to 
+          any third party without your consent.
+          </label></div>
+
+          <div> <button>Submit</button></div>
+          
           </div>
         </form>
+              </CardContent>
+            </Card>           
+      </Box>
+
+       
         </Paper>
     </Container>
   )
