@@ -1,5 +1,4 @@
 import { Box, Container, Card,Paper, CardContent, CardMedia,Typography, useTheme } from '@mui/material'
-// import { Box, Button, Card, CardActions, CardContent, CardMedia, Container, List, ListItem, ListItemText, Typography } from '@mui/material'
 
 import React, { useState } from 'react'
 import './UserRegistration.css'
@@ -23,10 +22,7 @@ const UserRegistration = () => {
   }
 
   return (
-    <Container sx={{
-      width: '2000px',
-    }}>
-   
+    <Container>
       <Paper elevation={1}>
         <Box border='5px solid white'  sx={{
           alignItems: 'center',
@@ -42,22 +38,24 @@ const UserRegistration = () => {
         }} variant='h5'> Register Now</Typography>
         </Box> 
         <Box>
-            <Card sx={{ display: 'flex',
+            <Card sx={{ 
+                display: 'flex',
                 flexDirection: {xs: 'column', sm: 'row'},
                 paddingBottom: '20px',
                 border: 'none',
                 boxShadow: 'none' }}>
-              <CardMedia sx={{flex: 1,
-                   paddingY: '25px',
+              <CardMedia sx={{
+                  paddingY: '25px',
                   width: {xs: '100%', sm: '50%'},
-                  height: {xs: '200', sm: '400'}
+                  height: {xs: '200', sm: '400'},
+                  objectFit: 'cover'
                   }}
                 component="img"
                 alt="green iguana"
                 image={image1}
               />
               <CardContent sx={{flex: 1}}>
-              <form onSubmit={handleSubmit(submit)}>
+                <form onSubmit={handleSubmit(submit)}>
                   <div className='inputForm'>
                   <label>Full Name</label>
                   <input type="text" placeholder='Full Name' 
@@ -67,10 +65,10 @@ const UserRegistration = () => {
                        {errors.fullname && <span>{errors.fullname.message}</span>}
                   <label>KFS No</label>
                   <input type="text" placeholder='KFS No.' 
-                    {...register("kfs_no", { required: {value: true, message: "KFS NO is Required"},
-                    maxLength: {value: 10, message: "Cannot be Longer than 10 Characters"}, 
-                    pattern: {value: /^[0-9]+$/, message: "Can Only Contain Numbers"} })}/>
-                    {errors.kfs_no && <span>{errors.kfs_no.message}</span>}
+                      {...register("kfs_no", { required: {value: true, message: "KFS NO is Required"},
+                      maxLength: {value: 10, message: "Cannot be Longer than 10 Characters"}, 
+                      pattern: {value: /^[0-9]+$/, message: "Can Only Contain Numbers"} })}/>
+                      {errors.kfs_no && <span>{errors.kfs_no.message}</span>}
                   <label>KFS Email Adress</label>
                   <input type="text" placeholder='KFS Email Adress' 
                       {...register("email", { required: {value: true, message: "Email is Required"},
@@ -79,30 +77,30 @@ const UserRegistration = () => {
                       {errors.email && <span>{errors.email.message}</span>}
                   <label>Confirm Email</label>
                   <input type="text" placeholder='Confirm Email' 
-                    {...register("confirm_email", { required: {value: true, message: "Confirm Email is Required"},
-                    maxLength: {value: 50, message: "Cannot be Longer than 50 Characters"}, 
-                    pattern: {value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i, message: "Enter a Valid Email"},
-                    validate: (value) => value === watchEmail || "The Emails do not match" })}/>
+                      {...register("confirm_email", { required: {value: true, message: "Confirm Email is Required"},
+                      maxLength: {value: 50, message: "Cannot be Longer than 50 Characters"}, 
+                      pattern: {value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i, message: "Enter a Valid Email"},
+                      validate: (value) => value === watchEmail || "The Emails do not match" })}/>
                     {errors.confirm_email && <span>{errors.confirm_email.message}</span>}
                   <label>Mobile No.</label>
                   <input type="text" placeholder='Mobile No.' 
-                    {...register("phone", { required: {value: true, message: "Mobile Number is Required"},
-                    maxLength: {value: 10, message: "Cannot be Longer than 10 Characters"}, 
-                    pattern: {value: /^0\d{9}$/, message: "Enter a Valid Number, Start With 0"},
-                     })}/>
+                      {...register("phone", { required: {value: true, message: "Mobile Number is Required"},
+                      maxLength: {value: 10, message: "Cannot be Longer than 10 Characters"}, 
+                      pattern: {value: /^0\d{9}$/, message: "Enter a Valid Number, Start With 0"},
+                      })}/>
                      {errors.phone && <span>{errors.phone.message}</span>}
                   <label>Password</label>
                   <input type="password" placeholder='Password' 
-                    {...register("password", { required: {value: true, message: "Password is Required"},
-                    minLength: {value: 7, message: "Enter at Least 7 Caharcter"}, 
-                    })}/>
+                      {...register("password", { required: {value: true, message: "Password is Required"},
+                      minLength: {value: 7, message: "Enter at Least 7 Caharcter"}, 
+                      })}/>
                     {errors.password && <span>{errors.password.message}</span>}
                   <label>Confirm Password</label>
                   <input type="password" placeholder='Confirm Password' 
-                     {...register("confirm_password", { required: {value: true, message: "Confirm Password is Required"},
-                     minLength: {value: 7, message: "Must be at Least 7 Character"}, 
-                     validate: (value) => value === watchPassword || "The passwords do not match" })}/>
-                     {errors.confirm_password && <span>{errors.confirm_password.message}</span>}
+                      {...register("confirm_password", { required: {value: true, message: "Confirm Password is Required"},
+                      minLength: {value: 7, message: "Must be at Least 7 Character"}, 
+                      validate: (value) => value === watchPassword || "The passwords do not match" })}/>
+                      {errors.confirm_password && <span>{errors.confirm_password.message}</span>}
                   </div>
                   <div>
                       <div className='certify'>
@@ -115,15 +113,15 @@ const UserRegistration = () => {
                       </label>
                       </span>
                       </div>
+                      <div className='checkboxerror'>
                       {errors.confirm_terms && <span>{errors.confirm_terms.message}</span>}
+                      </div>
                   </div>
-                  <div> <button> Register </button></div>
-        </form>
+                  <div className='submitButton'><button> Register </button></div>
+            </form>
               </CardContent>
             </Card>           
       </Box>
-
-       
         </Paper>
     </Container>
   )

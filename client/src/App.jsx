@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import Home from "./pages/home/Home";
 import { CssBaseline } from "@mui/material";
 import UserRegistration from "./pages/users/UserRegistration";
+import AdminRegister from "./pages/users/AdminRegister";
 
 function App() {
 
@@ -33,6 +34,10 @@ function App() {
         {
           path: "/registration",
           element: <UserRegistration />,
+        },
+        {
+          path: "/admin/addUser",
+          element: <AdminRegister />,
         }
       ],
     },
