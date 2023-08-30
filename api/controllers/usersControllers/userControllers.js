@@ -41,7 +41,7 @@ export const createUser = (req, res)=>{
 
                 const genToken = crypto.randomBytes(32).toString("hex")
 
-                const expiresAt = new Date(Date.now() + 86400000); //token expiry timne in milliseconds
+                const expiresAt = new Date(Date.now() + 86400000); //token expiry timne in miliseconds
 
                 const q = {
                     text: 'INSERT INTO email_verification_token (user_id, token, expires_at) VALUES ($1, $2, $3)',
