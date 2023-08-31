@@ -2,6 +2,7 @@ import { Box, Container, Paper, Typography } from '@mui/material'
 import React from 'react'
 import './UserRegistration.css'
 import { useForm } from 'react-hook-form';
+import EmailInput from '../../components/reusableComponents.jsx/EmailInput';
 
 const AdminRegister = () => {
   
@@ -62,6 +63,15 @@ const AdminRegister = () => {
                       validate: (value) => value === watchPassword || "The passwords do not match" })}/>
                 {errors.confirm_password && <span>{errors.confirm_password.message}</span>}
                 </div>
+                < EmailInput
+                  type='text'
+                  placeholder='Test Email Input'
+                  register={register}
+                  name='test_email'
+                  maximLength={50}
+                  ifRequired={true}
+                  errors={errors}/>
+
                 <div className='inputForm options'>
                   <label>Choose A Role</label>
                   <select multiple {...register("roles")}>

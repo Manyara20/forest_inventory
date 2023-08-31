@@ -41,10 +41,10 @@ function App() {
           path: "/subcompartment",
           element: <SubCompartment/>
         },
-          {
+        {
           path: "/admin/addUser",
           element: <AdminRegister />,
-        }
+        },
       ],
     },
   ]);
