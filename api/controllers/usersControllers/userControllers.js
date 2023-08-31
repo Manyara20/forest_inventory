@@ -19,8 +19,10 @@ export const createUser = (req, res)=>{
         const salt = bcrypt.genSaltSync(10);
         const hashedPassword = bcrypt.hashSync(req.body.password, salt);
 
-        const values =[req.body.name, req.body.email, req.body.kfs_no, req.body.phone, hashedPassword]
+        const values =[req.body.fullname, req.body.email, req.body.kfs_no, req.body.phone, hashedPassword]
 
+        //storeUser IS AN SQL QUERRY DEFINED IN THE USER MODELS
+        
         pool.query(storeUser, values,  (err, data)=> {
             if (err) {
                 console.log(err);
