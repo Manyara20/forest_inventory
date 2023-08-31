@@ -5,8 +5,9 @@ import Box from '@mui/material/Box';
 import Home from "./pages/home/Home";
 import { CssBaseline } from "@mui/material";
 import UserRegistration from "./pages/users/UserRegistration";
-import SubCompartment from "./pages/ForestPlantations/subcompartment";
+// import SubCompartment from "./pages/ForestPlantations/subcompartment";
 import AdminRegister from "./pages/users/AdminRegister";
+import SubCompartment from "./pages/ForestPlantations/subcompartment";
 
 function App() {
 
@@ -38,7 +39,9 @@ function App() {
         },
         {
           path: "/subcompartment",
-          element: <SubCompartment/>,
+          element: <SubCompartment/>
+        },
+          {
           path: "/admin/addUser",
           element: <AdminRegister />,
         }
