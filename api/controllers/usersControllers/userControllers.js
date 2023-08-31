@@ -1,20 +1,27 @@
+import createError from "../../createError.js";
 import pool from "../../models/postgres.js";
 import { storeUser } from "../../models/userModels/userModels.js";
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
 
-export const createUser = (req, res)=>{
+const log = (message)=>{
+    return console.log(message)
+}
+
+export const createUser = (req, res, next)=>{
 
     const q ={text: 'SELECT * FROM users WHERE email= $1',
               values: [req.body.email.trim()],}
 
     pool.query(q, (err, data)=>{
         if (err) {
-            console.log(err);
-            return res.status(500).json("Something Went Wrong")
+            log(err);
+            return next(createError(500, "Something Went Wrong"))
         }
-        if (data.rows.length>0) return res.status(409).json("Email Already Registered")
 
+        if (data.rows.length>0){
+            return next(createError(409, "Email Already Exists"))
+        }
 
         const salt = bcrypt.genSaltSync(10);
         const hashedPassword = bcrypt.hashSync(req.body.password, salt);
@@ -25,8 +32,8 @@ export const createUser = (req, res)=>{
         
         pool.query(storeUser, values,  (err, data)=> {
             if (err) {
-                console.log(err);
-                return res.status(500).json("Something Went Wrong")
+                log(err);
+                return next(createError(500, "Something Went Wrong"))
             };
 
             const q ={text: 'SELECT * FROM users WHERE email= $1',
@@ -35,8 +42,8 @@ export const createUser = (req, res)=>{
             pool.query(q ,(err, data)=>{
 
                 if(err) {
-                    console.log(err);
-                    return res.status(500).json("Something Went Wrong")
+                    log(err)
+                    return next(createError(500, "Something Went Wrong"))
                 }
 
                 const user= data.rows[0]
@@ -52,8 +59,8 @@ export const createUser = (req, res)=>{
 
                 pool.query(q, (err, data)=>{
                     if (err) {
-                        console.log(err);
-                        return res.status(500).json("Something Went Wrong")
+                        log(err);
+                        return next(createError(500, "Something Went Wrong"))
                     }
 
                     //sendConfirmationEmail(user, genToken)

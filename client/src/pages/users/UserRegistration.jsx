@@ -1,12 +1,10 @@
 import { Box, Container, Card,Paper, CardContent, CardMedia,Typography, useTheme } from '@mui/material'
-
-import React, { useContext, useState } from 'react'
 import './UserRegistration.css'
 import image1 from '../../../src/assets/images/forest.jpg';
 import { useForm } from 'react-hook-form';
-import newRequest from '../../utils/newRequest';
-import SnackBar from '../../components/globalComponents/SnackBar';
-import { AppContext } from '../../context/ApplicationContext.jsx';
+import SnackBar from '../../components/globalComponents/Notification';
+import { updateData } from '../../utils/fetchMethods';
+import { useValue } from '../../context/ContextProvider';
 // import Container from '@mui/material/Container';
 
 
@@ -14,25 +12,18 @@ const UserRegistration = () => {
 
   const {palette}=useTheme();
 
-  const {setOpenSnackbar, setSnackbarProps} = useContext(AppContext)
+  const {dispatch}= useValue()
  
   const { register, handleSubmit, watch, formState: { errors } } = useForm({mode: 'onChange'});
+
+  const submit = (data)=>{
+    updateData('post', '/register', data, dispatch)
+  }
 
   const watchPassword = watch("password")
   const watchEmail = watch("email")
 
-
-  const submit = async (data) =>{
-
-    try {
-      const res = await newRequest.post('/register', data)
-      setSnackbarProps({severity: "error", duration: 3000, message: res.data.message})
-      setOpenSnackbar(true);
-
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  updateData
 
   return (
     <Container>

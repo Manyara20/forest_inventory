@@ -3,15 +3,14 @@ import ReactDOM from 'react-dom/client'
 import { theme } from '../src/theme.js'
 import App from './App.jsx'
 import { ThemeProvider } from '@mui/material'
-import { AppContextProvider } from './context/ApplicationContext.jsx'
-
+import ContextProvider from './context/ContextProvider.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <AppContextProvider>
+      <ContextProvider>
         <App />
-      </AppContextProvider>
+      </ContextProvider>
     </ThemeProvider>
   </React.StrictMode>,
 )

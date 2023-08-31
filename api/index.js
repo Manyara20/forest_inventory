@@ -37,6 +37,14 @@ pool.connect((err, client, done) => {
 
 app.use(userRoutes)
 
+app.use((err, req, res, next) => {
+  const errorStatus = err.status || 500;
+  const errorMessage = err.message || "Something went wrong!";
+
+  return res.status(errorStatus).json(errorMessage);
+});
+
+
 app.listen(port, ()=>{
     console.log(`Backend Running Succesfully on port ${port}`)
 })
