@@ -38,10 +38,11 @@ function App() {
         },
         {
           path: "/subcompartment",
-          element: <SubCompartment/>,
+          element: <SubCompartment/>},
+        {
           path: "/admin/addUser",
           element: <AdminRegister />,
-        }
+        },
       ],
     },
   ]);
