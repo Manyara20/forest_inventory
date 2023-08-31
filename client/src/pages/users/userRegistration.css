@@ -45,5 +45,54 @@
 .certify span {
    padding-right: 1em;
 }
+
+.checkboxerror span {
+  color: #cc0000;
+  font-size: small;
+  font-style: italic;
+  font-family: Arial, Helvetica, sans-serif;
+  padding-left: 1em;
+}
+
+.submitButton{
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.submitButton button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  align-self: center;
+  justify-self: center;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  border-radius: 20px;
+  width: 95%;
+  cursor: pointer;
+  transition-duration: 0.4s;
+}
+
+.submitButton button:hover {
+  background-color: #008CBA;
+  color: white;
+}
+
+.options {
+  border: 1px solid #e5e5e5;
+  padding: 10px;
+}
+
+.options select {
+  font-size: 14px;
+  border: none;
+  width: 100%;
+  background: white;
+}
   
 
