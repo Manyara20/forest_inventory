@@ -5,22 +5,21 @@ import cors from 'cors'
 import userRoutes from './routes/userRoutes/userRoutes.js'
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
-import RedisStore from "connect-redis"
-import Redis from 'ioredis';
-//import http from 'http';
+import { testDatabase } from './utils/testConnection.js';
+import ConnectPg from 'connect-pg-simple';
+
+
+//import RedisStore from "connect-redis"
+//import { redisClient, tryRedisConnection } from './models/redisConfig.js';
 
 
 const app = express();
 dotenv.config();
 
+let pgSession = ConnectPg(session);
+
 //redis 
-
-const redisClient = new Redis({
-  port: 6379, 
-  host: "127.0.1.1",
-});
-
-const store = new RedisStore({ client: redisClient });
+//const store = new RedisStore({ client: redisClient });
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Credentials", true);
@@ -37,7 +36,7 @@ app.use(
     secret: process.env.COOKIE_SECRET,
     credentials: true,
     name: "sid",
-    store: store,
+    store: new pgSession({pool: pool, tableName: 'session'}),
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -53,16 +52,10 @@ app.use(cookieParser());
 
 const port = process.env.port || 8000
 
-pool.connect((err, client, done) => {
-    if (err) {
-      console.error('Error connecting to the database:', err);
-    } else {
-      console.log('Connected to PostgreSQL database!');
-      done(); 
-    }
-  });
+//test connection
 
-redisClient.set("samson", "chege");
+await testDatabase();
+//await tryRedisConnection();
 
 //routes
 

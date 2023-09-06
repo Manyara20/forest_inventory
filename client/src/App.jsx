@@ -8,6 +8,7 @@ import UserRegistration from "./pages/users/UserRegistration";
 // import SubCompartment from "./pages/ForestPlantations/subcompartment";
 import AdminRegister from "./pages/users/AdminRegister";
 import SubCompartment from "./pages/ForestPlantations/subcompartment";
+import LoginForm from "./pages/users/LoginForm";
 
 function App() {
 
@@ -44,6 +45,10 @@ function App() {
         {
           path: "/admin/addUser",
           element: <AdminRegister />,
+        },
+        {
+          path: "/login",
+          element: <LoginForm/>,
         },
       ],
     },

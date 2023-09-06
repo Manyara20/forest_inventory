@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 const EmailInput = (props) => {
 
-    const {type, placeholder, maximLength, name, ifRequired, errors, register}=props;
+    const {type, placeholder, label, maximLength, name, ifRequired, errors, register}=props;
 
   return (
     <div className='inputForm'>
-        <label>KFS Email Adress</label>
+        <label>{label}</label>
             <input type={type} placeholder={placeholder} 
               {...register(name, { required: {value: ifRequired, message: "Email is Required"},
                       maxLength: {value: maximLength, message: "Cannot be Longer than 50 Characters"}, 
@@ -20,6 +20,7 @@ const EmailInput = (props) => {
 
     EmailInput.propTypes ={
         type: PropTypes.string,
+        label: PropTypes.string,
         placeholder: PropTypes.string,
         maximLength: PropTypes.number,
         name: PropTypes.string,
