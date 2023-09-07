@@ -1,5 +1,4 @@
 import { Box, Container, Paper, Typography } from '@mui/material'
-import React from 'react'
 import './UserRegistration.css'
 import { useForm } from 'react-hook-form';
 import EmailInput from '../../components/reusableComponents.jsx/EmailInput';

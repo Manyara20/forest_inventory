@@ -3,7 +3,7 @@ import './UserRegistration.css'
 import image1 from '../../../src/assets/images/forest.jpg';
 import { useForm } from 'react-hook-form';
 import SnackBar from '../../components/globalComponents/Notification';
-import { updateData } from '../../utils/fetchMethods';
+import { updateData } from '../../actions/fetchMethods';
 import { useValue } from '../../context/ContextProvider';
 // import Container from '@mui/material/Container';
 

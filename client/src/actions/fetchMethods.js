@@ -1,5 +1,5 @@
-import newRequest from "./newRequest"
-import { setErrorMessage } from "./utilMethods";
+import newRequest from "../utils/newRequest"
+import { setErrorMessage } from "../utils/utilMethods";
 
 export const updateData = async(method, url, dataToSend, dispatch,)=>{
 
