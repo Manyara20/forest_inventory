@@ -1,29 +1,27 @@
 import PropTypes from 'prop-types';
 
+const NumericalInput = (props) => {
 
-const NameInput = (props) => {
-
-    const {placeholder, label, maximLength, minLength, name, ifRequired, errors, register}=props;
+    const {placeholder, label, max, min, name, ifRequired, errors, register}=props;
 
   return (
     <div className='inputForm'>
         <label>{label}</label>
             <input type='text' placeholder={placeholder} 
               {...register(name, { required: {value: ifRequired, message: "This field is required"},
-                      maxLength: {value: maximLength, message: `Cannot be Longer than ${maximLength} characters`}, 
-                      minLength: {value: minLength, message: `Must be at least ${minLength} characters`},
-                      pattern: {value: /^(?!^\s+$)[A-Za-z0-9\s]*$/, message: "Must Contain no special characters"} })}/>
-
+                      max: {value: max, message: `Cannot be less than ${max} characters`}, 
+                      min: {value: min, message: `Must be at least ${min} characters`},
+                      pattern: {value: /^-?\d+(\.\d+)?$/, message: "must be a number"} })}/>
               {errors[name] && <span>{errors[name].message}</span>}
     </div>
   )
 }
 
-    NameInput.propTypes ={
+    NumericalInput.propTypes ={
         label: PropTypes.string,
         placeholder: PropTypes.string,
-        maximLength: PropTypes.number,
-        minLength: PropTypes.number,
+        max: PropTypes.number,
+        min: PropTypes.number,
         name: PropTypes.string,
         ifRequired:PropTypes.bool,
         inputPattern: PropTypes.shape(RegExp),
@@ -31,4 +29,4 @@ const NameInput = (props) => {
         register: PropTypes.func,
     }
 
-export default NameInput
+export default NumericalInput
