@@ -4,7 +4,7 @@ const FormCard = (props) => {
     const {children} = props
 
   return (
-    <div className="h-full mx-auto border-4 rounded-2xl bg-white py-5 my-5">
+    <div className="h-full mx-auto border-4 rounded-2xl max-w-2xl bg-white py-5 my-5">
         <div className="grid grid-cols-12 gap-1">
             <div className="hidden sm:block md:col-span-5 lg:col-span-6 bg-cover bg-center bg-no-repeat bg-kenya">
             </div>

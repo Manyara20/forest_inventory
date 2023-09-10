@@ -16,7 +16,7 @@ const PasswordInput = (props) => {
     <div className='my-2'>
         <label className={`${styles.formLabels}`}>{label}</label>
             <div className='relative'>
-                <input className={customPasswordClass} id="password" type={showPassword? 'text': 'password'} placeholder={placeholder} 
+                <input className={customPasswordClass} id="confirm_password" type={showPassword? 'text': 'password'} placeholder={placeholder} 
                 {...register(name, { required: {value: ifRequired, message: "Password is Required"},
                         maxLength: {value: maximLength, message: `Cannot be Longer ${maximLength} than  Characters`}, 
                         pattern: {value: /^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z!@#$%^&*\d]{7,}$/, 

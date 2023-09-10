@@ -6,8 +6,8 @@ import { getLoginStatus } from "../actions/userActions"
 const initialState = {
   alert: {open: false, variant: 'danger', message: 'Testing Toaster', duration: 500000},
   currentUser: null,
-  openAlert: false, 
   loginStatus: false,
+  loading: false,
 }
 
 const Context = createContext(initialState)

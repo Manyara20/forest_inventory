@@ -9,7 +9,7 @@ const Navbar = () => {
   }
 
   return (
-    <div>
+    <div className="z-50 cursor-auto">
       <div className="hidden md:flex flex-row justify-between items-center py-3 ">
         <div onClick={()=>{handleNavigate('/')}} className=" items-center justify-start cursor-pointer">
            <h3 className=" text-start text-purple-50 font-mono font-extrabold text-2xl px-4">KFS Inventory</h3>

@@ -10,6 +10,8 @@ import NameInput from "./formComponents/NameInput"
 import NumericalInput from "./formComponents/NumericalInput"
 import ConfirmPassword from "./formComponents/ConfirmPassword"
 import ConfirmEmail from "./formComponents/ConfirmEmail"
+import NotificationToast from "./globalComponents/NotificationToast"
+import PhoneInput from "./formComponents/PhoneNumberField"
 
 
 const SignupForm = () => {
@@ -22,14 +24,16 @@ const SignupForm = () => {
     const {dispatch}= useValue();
 
     const submit = (data)=>{
-        updateData('post', '/login', data, dispatch)
+        updateData('post', '/register', data, dispatch)
       };
     
   return (
+    <>
+    <NotificationToast />
    <form onSubmit={handleSubmit(submit)}>
     <FormHeader
-        heading="Login to Your Account"
-        paragraph="Don't Have An Account Yet? "
+        heading="Register to Use The System"
+        paragraph="Already Have an Account ?"
         linkName="Login"
         linkUrl="/login"/>
     <NameInput
@@ -68,6 +72,15 @@ const SignupForm = () => {
         watchValue={watchEmail}
         ifRequired={true}
         errors={errors}/>
+    < PhoneInput
+        placeholder={'Phone Number'}
+        label="Phone Number"
+        maximLength={10}
+        minLength={0}
+        name='phone'
+        ifRequired={true}
+        errors={errors}
+        register={register}/>
     <PasswordInput
         name='password'
         placeholder='Password'
@@ -87,13 +100,13 @@ const SignupForm = () => {
         register={register}
         watchValue={watchPassword}
          />
-    <ForgotPassword/>
     <SubmitButton
         type='submit'
         handleSubmit={null}
-        text='Login'
+        text='Sign Up'
         />
    </form>
+   </>
   )
 }
 
