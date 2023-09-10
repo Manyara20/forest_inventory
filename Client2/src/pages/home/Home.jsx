@@ -1,12 +1,16 @@
-import SignupForm from "../../components/SignupForm"
-import FormCard from "../../components/globalComponents/FormCard"
+import NotificationToast from "../../components/globalComponents/NotificationToast"
+import Additional from "../../components/home/Additional"
+import GetStarted from "../../components/home/GetStarted"
+import SecondAdditional from "../../components/home/SecondAdditional"
+
 
 const Home = () => {
   return (
    <div>
-    <FormCard>
-      < SignupForm />
-    </FormCard>
+      <NotificationToast />
+      < GetStarted />
+      < Additional />
+      < SecondAdditional/>
    </div>
   )
 }

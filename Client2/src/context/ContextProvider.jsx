@@ -4,7 +4,7 @@ import reducer from "./reducer"
 import { getLoginStatus } from "../actions/userActions"
 
 const initialState = {
-  alert: {open: false, severity: 'info', message: ''},
+  alert: {open: false, variant: 'danger', message: 'Testing Toaster', duration: 500000},
   currentUser: null,
   openAlert: false, 
   loginStatus: false,

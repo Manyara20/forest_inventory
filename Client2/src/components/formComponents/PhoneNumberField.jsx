@@ -9,7 +9,7 @@ const PhoneInput = (props) => {
     const customEmailClass=`rounded-md appearance-none block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus: outline-none  sm:text-sm ${!errors[name] ? "focus:ring-purple-500 focus:border-purple-500" :"focus:ring-red-500 focus:border-red-500" }`
 
   return (
-    <div className=' my-5'>
+    <div className=' my-2'>
         <label className={`${styles.formLabels}`}>{label}</label>
             <input type='text' placeholder={placeholder} className={customEmailClass}
               {...register(name, { required: {value: ifRequired, message: "This field is required"},

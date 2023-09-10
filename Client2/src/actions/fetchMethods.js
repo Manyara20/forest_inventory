@@ -8,11 +8,11 @@ export const updateData = async(method, url, dataToSend, dispatch,)=>{
     try {
         const res = await newRequest(config)
         const data = res.data
-        dispatch({type: 'UPDATE_ALERT', payload: {open: true, severity: 'success', message: data}})
+        dispatch({type: 'UPDATE_ALERT', payload: {open: true, variant: 'success', duration: 5000, message: data}})
     } catch (error) {
         dispatch({
             type: 'UPDATE_ALERT',
-            payload: {open: true, severity: 'error', message: setErrorMessage(error)}
+            payload: {open: true, variant: 'danger', message: setErrorMessage(error), duration: 5000}
         })
     }
 

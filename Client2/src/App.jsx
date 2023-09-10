@@ -2,16 +2,17 @@ import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import Home from "./pages/home/Home";
 import Footer from "./components/home/Footer";
 import Navbar from './components/home/Navbar'
+import SignUp from "./pages/users/SignUp";
 
 function App() {
 
   const Layout =()=>{
     return(
-      <>
-      < Navbar/>
-      < Outlet />
-      < Footer/>
-      </>
+      < div className="h-full bg-gradient-to-br from-custom-blue to-custom-blue via-middle-green">
+        < Navbar/>
+        < Outlet />
+        < Footer/>
+      </div>
     )
   };
 
@@ -23,6 +24,10 @@ function App() {
         {
           path: "/",
           element: <Home />,
+        },
+        {
+          path: "/register",
+          element: <SignUp />,
         },
       ],
     },

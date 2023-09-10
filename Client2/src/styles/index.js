@@ -1,7 +1,7 @@
 const styles = {
     innerWidth: '2xl:max-w-[1280px] w-full',
     interWidth: 'lg:w-[80%] w-[100%]',
-    formLabels: 'block mb-2 text-sm font-medium text-gray-900 dark:text-white',
+    formLabels: 'block mb-2 text-sm font-bold text-gray-900 dark:text-white',
   
     paddings: 'sm:p-16 xs:p-8 px-6 py-12',
     yPaddings: 'sm:py-16 xs:py-8 py-12',

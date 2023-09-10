@@ -6,11 +6,11 @@ export const login = async(dataToSend, dispatch,)=>{
         const res = await newRequest.post('/login', dataToSend)
         const data = res.data
         dispatch({type: 'UPDATE_CURRENT_USER', payload: data})
-        dispatch({type: 'UPDATE_ALERT', payload: {open: true, severity: 'success', message: data.message}})
+        dispatch({type: 'UPDATE_ALERT', payload: {open: true, variant: 'success', duration: 5000, message: data.message}})
     } catch (error) {
         dispatch({
             type: 'UPDATE_ALERT',
-            payload: {open: true, severity: 'error', message: setErrorMessage(error)}
+            payload: {open: true, variant: 'danger', message: setErrorMessage(error), duration: 5000}
         })
     }
 
@@ -23,7 +23,7 @@ export const getLoginStatus = async (dispatch)=>{
     } catch (error) {
         dispatch({
             type: 'UPDATE_ALERT',
-            payload: {open: true, severity: 'error', message: setErrorMessage(error)}
+            payload: {open: true, variant: 'danger', message: setErrorMessage(error), duration: 5000}
         })
     }
 }

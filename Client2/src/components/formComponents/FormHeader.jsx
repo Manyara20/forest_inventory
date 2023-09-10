@@ -7,7 +7,7 @@ const FormHeader=(props)=>{
     const {heading, paragraph, linkName, linkUrl}= props;
 
     return(
-        <div className="mb-10">
+        <div className="mb-5">
             <div className="flex justify-center">
                 <img 
                     alt=""
