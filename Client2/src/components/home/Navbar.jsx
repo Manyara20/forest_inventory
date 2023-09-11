@@ -31,7 +31,7 @@ const Navbar = () => {
 
   return (
     <div className="z-30 cursor-auto fixed top-0 left-0 h-15 w-full ">
-      <div className={`hidden md:flex flex-row items-center py-3 ${classJustify}`}>
+      <div className={`hidden md:flex flex-row items-center px-2 py-3 ${classJustify}`}>
         {
           !active ? (
           <div onClick={()=>{handleNavigate('/')}} className=" items-center justify-start cursor-pointer">

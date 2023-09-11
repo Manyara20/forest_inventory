@@ -1,6 +1,7 @@
 import express from 'express'
 import { createUser } from '../../controllers/usersControllers/userControllers.js';
 import { attemptLogin, handleGetLogin, handleLogout,} from '../../controllers/usersControllers/authController.js';
+import { subcompartment } from '../../controllers/usersControllers/subcompartController.js';
 
 const router = express.Router();
 
