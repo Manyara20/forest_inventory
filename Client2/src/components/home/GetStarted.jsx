@@ -30,11 +30,11 @@ const GetStarted = () => (
         className="flex-[0.75] flex justify-center flex-col"
       >
         <TypingTextBlack title="| Welcome to Kenya Forest Inventory System" />
-        <TitleText title={<>Get started with just a few clicks</>} />
+        <TitleText title={<>A Database for all Institutional and Private Tree Nurseries</>} />
         <div className="mt-[31px] flex flex-col max-w-[370px] gap-[24px]">
           {startingFeatures.map((feature, index) => (
             <StartSteps
-              key={feature}
+              key={index}
               number={`${index < 10 ? '0' : ''} ${index + 1}`}
               text={feature}
             />

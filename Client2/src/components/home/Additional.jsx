@@ -12,11 +12,11 @@ const Additional = () => (
       viewport={{ once: false, amount: 0.25 }}
       className={`${styles.innerWidth} mx-auto flex flex-col`}
     >
-      <TypingTextBlack title="| People on the World" textStyles="text-center" />
+      <TypingTextBlack title="| A Goal Within Reach " textStyles="text-center" />
       <TitleTextWhite
         title={(
-          <>Track friends around you and invite them to play together in the same
-            world
+          <>
+          Support the attainment of the Presidential Directive on 10% national tree cover by 2022
           </>
         )}
         textStyles="text-center"

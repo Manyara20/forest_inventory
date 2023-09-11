@@ -3,23 +3,23 @@ import nursery2 from '../assets/images/nursery2.jpeg'
 
 
 export const startingFeatures = [
-    'Find a world that suits you and you want to enter',
-    'Enter the world by reading basmalah to be safe',
-    'No need to beat around the bush, just stay on the gas and have fun',
+    'Mapping of the tree nurseries to determine their spread and distribution',
+    'Improve standards for production of tree seedlings and management of tree nurseries',
+    'Provide opportunities for networking and marketing amongst the registered tree nursery practitioners',
   ];
 
   export const newFeatures = [
     {
       imgUrl: {nursery2},
-      title: 'A new world',
+      title: 'Private Tree Nurseries',
       subtitle:
-          'we have the latest update with new world for you to try never mind',
+          'Tree Nurseries owned by individuals and private institutions ',
     },
     {
       imgUrl: {nursery},
-      title: 'More realistic',
+      title: 'Institutional Tree Nurseries',
       subtitle:
-          'In the latest update, your eyes are narrow, making the world more realistic than ever',
+          'Tree Nurseries Owned by Goverment Institutions',
     },
   ];
   

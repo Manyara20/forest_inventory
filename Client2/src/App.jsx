@@ -11,7 +11,9 @@ function App() {
     return(
       < div className="h-full bg-gradient-to-br from-custom-blue to-custom-blue via-middle-green">
         < Navbar/>
+        <div className="pt-16">
         < Outlet />
+        </div>
         < Footer/>
       </div>
     )
