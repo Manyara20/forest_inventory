@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"
+import { useValue } from "../../context/ContextProvider";
+import { logout } from "../../actions/userActions";
 
 const Navbar = () => {
 
   const [active, setActive]=useState(false)
+
+  const {state: {currentUser}, dispatch}= useValue();
 
   const classJustify = active ? 'justify-center': 'justify-between'
 
@@ -22,6 +26,8 @@ const Navbar = () => {
       window.removeEventListener("scroll", isActive);
     };
   }, []);
+
+
 
   return (
     <div className="z-30 cursor-auto fixed top-0 left-0 h-15 w-full ">
@@ -58,13 +64,20 @@ const Navbar = () => {
         </ul>
         </div>
         {
-          !active ? (
-            <div className=" flex items-center justify-end flex-row gap-2">
-            <button onClick={()=>{handleNavigate('/login')}} className="font-sans font-extrabold px-4 py-2 text-purple-800  "> Log In </button>
-            <button onClick={()=>{handleNavigate('/register')}} className=" font-sans text-purple-800 font-extrabold font rounded-full bg-white px-4 py-2 hover:bg-custom-green"> Sign Up </button>
-        </div>
-          ): ""
-        }
+  !active ? (
+    <div className="flex items-center justify-end flex-row gap-2">
+      {!currentUser.loggedIn ? (
+        <>
+          <button onClick={() => handleNavigate('/login')} className="font-sans font-extrabold px-4 py-2 text-purple-800">Log In</button>
+          <button onClick={() => handleNavigate('/register')} className="font-sans text-purple-800 font-extrabold font rounded-full bg-white px-4 py-2 hover:bg-custom-green">Sign Up</button>
+        </>
+      ) : (
+        <button onClick={() => logout(dispatch, navigate)} className="font-sans text-purple-800 font-extrabold font rounded-full bg-white px-4 py-2 hover:bg-custom-green">Logout</button>
+      )}
+    </div>
+  ) : null
+}
+
         
       </div>
     </div>
