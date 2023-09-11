@@ -42,7 +42,7 @@ app.use(
     cookie: {
       secure: process.env.ENVIRONMENT === "production" ? "true" : "auto",
       httpOnly: true,
-      expires: 1000 * 60 * 60 * 24 * 7,
+      expires: 1000 * 60 * 60 * 24,
       sameSite: process.env.ENVIRONMENT === "production" ? "none" : "lax",
     },
   })

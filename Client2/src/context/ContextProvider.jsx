@@ -5,7 +5,7 @@ import { getLoginStatus } from "../actions/userActions"
 
 const initialState = {
   alert: {open: false, variant: 'danger', message: 'Testing Toaster', duration: 500000},
-  currentUser: null,
+  currentUser: {loggedIn: false},
   loginStatus: false,
   loading: false,
 }
