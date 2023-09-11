@@ -1,6 +1,7 @@
 import newRequest from "../utils/newRequest"
 import { setErrorMessage } from "../utils/utilMethods";
 
+
 export const login = async(dataToSend, dispatch,)=>{
     try {
         const res = await newRequest.post('/login', dataToSend)
