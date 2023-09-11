@@ -7,7 +7,6 @@ import crypto from 'crypto';
 const log = (message)=>{
     return console.log(message)
 }
-
 export const createUser = (req, res, next)=>{
 
     const q ={text: 'SELECT * FROM users WHERE email= $1',

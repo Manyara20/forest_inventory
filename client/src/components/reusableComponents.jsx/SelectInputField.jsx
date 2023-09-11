@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
+import '../components.css';
 
-const SelectInput = (props) => {
+const SelectInputField = (props) => {
     const {label, register, options, name, errors, ifRequired}= props
   return (
     <div className='inputForm options'>
@@ -17,7 +18,7 @@ const SelectInput = (props) => {
   )
 }
 
-SelectInput.propTypes ={
+SelectInputField.propTypes ={
     label: PropTypes.string,
     options: PropTypes.array,
     name: PropTypes.string,
@@ -26,4 +27,4 @@ SelectInput.propTypes ={
     register: PropTypes.func,
 }
 
-export default SelectInput
+export default SelectInputField
