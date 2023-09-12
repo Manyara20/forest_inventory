@@ -7,7 +7,12 @@ import Login from "./pages/users/Login";
 import Layout from "./components/dashboard/Layout";
 import DashboardHome from "./pages/dashboard/DashboardHome";
 
-const LoginHoc = Layout(DashboardHome)
+import CustomTable from "./components/dashboard/CustomTable";
+import CustomDatagrid from "./components/dashboard/Datagrid";
+
+const LoginHoc = Layout(DashboardHome);
+const UsersHoc = Layout(CustomTable);
+const ProductsHOC = Layout(CustomDatagrid)
 
 function App() {
 
@@ -47,6 +52,14 @@ function App() {
     {
       path: "/dashboard",
       element: <LoginHoc />,
+    },
+    {
+      path: "/dashboard/users",
+      element: < UsersHoc />,
+    },
+    {
+      path: "/dashboard/products",
+      element: < ProductsHOC />,
     },
   ]
 

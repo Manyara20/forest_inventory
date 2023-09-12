@@ -24,13 +24,13 @@ export const menu = [
         {
           id: 1,
           title: "Users",
-          url: "/users",
+          url: "/dashboard/users",
           icon: "user.svg",
         },
         {
           id: 2,
           title: "Products",
-          url: "/products",
+          url: "/dashboard/products",
           icon: "product.svg",
         },
         {
