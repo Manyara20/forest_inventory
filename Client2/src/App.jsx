@@ -5,15 +5,15 @@ import Navbar from './components/home/Navbar'
 import SignUp from "./pages/users/SignUp";
 import Login from "./pages/users/Login";
 import Layout from "./components/dashboard/Layout";
-import Add from "./components/dashboard/Add";
+import DashboardHome from "./pages/dashboard/DashboardHome";
 
-const LoginHoc = Layout(Add)
+const LoginHoc = Layout(DashboardHome)
 
 function App() {
 
   const Layout =()=>{
     return(
-      < div className="h-full bg-gradient-to-br from-custom-blue overflow-hidden to-custom-blue via-middle-green">
+      < div className="h-full bg-gradient-to-br from-custom-blue overflow-hidden to-custom-blue via-middle-green text-white">
         < Navbar/>
         <div className="pt-16">
         < Outlet />

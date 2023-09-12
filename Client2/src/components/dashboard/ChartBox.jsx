@@ -1,17 +1,16 @@
 import { Link } from "react-router-dom";
-import "./chartBox.scss";
 import { Line, LineChart, ResponsiveContainer, Tooltip } from "recharts";
-import PropTypes, { object } from 'prop-types'
+import PropTypes from 'prop-types'
 
-const ChartBox = (color, icon, title, dataKey, number, percentage, chartData) => {
+const ChartBox = ({color, icon, title, dataKey, number, percentage, chartData}) => {
   return (
     <div className=" flex h-full flex-col sm:flex-row">
       <div className=" flex-[3] flex flex-col justify-between gap-[20px] sm:gap-[15px] ">
         <div className=" gap-[10px] items-center flex 2xl:text-[14px]">
           <img src={icon} alt="" />
-          <span>{title}</span>
+          <span className=" text-white font-medium">{title}</span>
         </div>
-        <h1 className=" 2xl:text-[20px]">{number}</h1>
+        <h1 className="  text-white font-medium 2xl:text-[20px]">{number}</h1>
         <Link to="/" style={{ color: color }}>
           View all
         </Link>
@@ -42,7 +41,7 @@ const ChartBox = (color, icon, title, dataKey, number, percentage, chartData) =>
           >
             {percentage}%
           </span>
-          <span className=" text-[14px]">this month</span>
+          <span className="text-white font-medium text-[14px]">this month</span>
         </div>
       </div>
     </div>
@@ -56,7 +55,7 @@ ChartBox.propTypes = {
         dataKey: PropTypes.string,
         number: PropTypes.number | PropTypes.string,
         percentage: PropTypes.number,
-        chartData: PropTypes.arrayOf(object),
+        chartData: PropTypes.array,
       };
 
 export default ChartBox;

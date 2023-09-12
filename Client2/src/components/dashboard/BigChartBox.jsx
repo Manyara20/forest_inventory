@@ -11,8 +11,8 @@ import {
   const BigChartBox = ({data}) => {
     return (
       <div className=" w-full h-full flex flex-col justify-between">
-        <h1 className=" 2xl: text-[24px]">Nursery Analytics</h1>
-        <div className=" h-[300px] w-[100%]">
+        <h1 className=" 2xl: text-[24px]  text-white font-medium">Nursery Analytics</h1>
+        <div className=" h-[300px] w-[100%]  text-white font-medium">
           <ResponsiveContainer width="99%" height="100%">
             <AreaChart
               data={data}
