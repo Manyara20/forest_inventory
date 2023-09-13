@@ -16,6 +16,12 @@ export default {
         'custom-green': '#386816',
         'custom-blue' : '#00525f',
         'middle-green' : '#00f79a',
+        'main-bg': '#2a3447',
+        'soft-bg': '#384256',
+        'dark-bg': '#222b3c',
+        'main-color': '#white',
+        'soft-color': '#ddd',
+        'dark-color': '#2a3447',
       }
     },
   },

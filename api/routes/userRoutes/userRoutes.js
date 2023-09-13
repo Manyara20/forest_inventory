@@ -3,6 +3,7 @@ import { createUser } from '../../controllers/usersControllers/userControllers.j
 
 import { attemptLogin, handleGetLogin, handleLogout,} from '../../controllers/usersControllers/authController.js';
 import { getConservancy } from '../../controllers/dropdownController.js';
+import { subcompartment } from '../../controllers/usersControllers/subcompartController.js';
 
 const router = express.Router();
 

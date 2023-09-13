@@ -5,12 +5,21 @@ import Navbar from './components/home/Navbar'
 import SignUp from "./pages/users/SignUp";
 import Login from "./pages/users/Login";
 import ManagementInsertForm from "./pages/management/management_insert";
+import Layout from "./components/dashboard/DashboardLayout";
+import DashboardHome from "./pages/dashboard/DashboardHome";
+
+import CustomTable from "./components/dashboard/CustomTable";
+import CustomDatagrid from "./components/dashboard/Datagrid";
+
+const LoginHoc = Layout(DashboardHome);
+const UsersHoc = Layout(CustomTable);
+const ProductsHOC = Layout(CustomDatagrid)
 
 function App() {
 
   const Layout =()=>{
     return(
-      < div className="h-full bg-gradient-to-br from-custom-blue to-custom-blue via-middle-green">
+      < div className="h-full bg-gradient-to-br from-custom-blue overflow-hidden to-custom-blue via-middle-green text-white">
         < Navbar/>
         <div className="pt-16">
         < Outlet />
@@ -20,7 +29,7 @@ function App() {
     )
   };
 
-  const router = createBrowserRouter([
+  const appRoutes = [
     {
       path: "/",
       element: <Layout />,
@@ -43,6 +52,25 @@ function App() {
         },
       ],
     },
+  ]
+  const dashboardRoutes = [
+    {
+      path: "/dashboard",
+      element: <LoginHoc />,
+    },
+    {
+      path: "/dashboard/users",
+      element: < UsersHoc />,
+    },
+    {
+      path: "/dashboard/products",
+      element: < ProductsHOC />,
+    },
+  ]
+
+  const router = createBrowserRouter([
+   ...appRoutes,
+   ...dashboardRoutes,
   ]);
 
 
