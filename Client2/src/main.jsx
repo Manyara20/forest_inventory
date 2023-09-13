@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
 import ContextProvider from './context/ContextProvider.jsx'
-import { QueryClientProvider } from '@tanstack/react-query'
+import { queryClient } from './utils/reactQueryClient.js'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import {  QueryClientProvider } from '@tanstack/react-query';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -11,6 +13,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <ContextProvider>
         <App />
       </ContextProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
   </React.StrictMode>,
 )

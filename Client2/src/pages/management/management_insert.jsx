@@ -10,49 +10,36 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { setErrorMessage } from "../../utils/utilMethods";
 import newRequest from "../../utils/newRequest";
-
-// import styles from '../../styles'
-
-
-//GET COUNTY
-
-
-
+import { async } from "regenerator-runtime";
+import { useQuery } from "@tanstack/react-query";
+import { login } from "../../actions/userActions";
 
 const ManagementInsertForm = () => {
-const [conservancies, setConservancies]= useState([]);
-const [counties, setCounties]=useState([]);
-const [subcounties, setSubcounties]=useState([]);
-const [loading, setLoading]=useState(true)
-const { register, handleSubmit, watch, reset, control, formState: { errors } } = useForm({mode: 'onChange'});
 
-const watchConservancy= watch("conservancy");
+const [subcounties, setSubcounties]=useState([]);
+
+const { register, handleSubmit, watch, reset, control, formState: { errors } } = useForm({mode: 'onChange'});
+//const watchConservancy= watch("conservancy");
 const watchCounty = watch("county");
 const watchStation = watch("station");
     
 
-const{ dispatch}= useValue();
+    const{ dispatch}= useValue();
 
-    const fetchConservancy= async ()=>{
-        try{
-          const {data} = await newRequest.get("/conservancy")
-          console.log(data)
-          setConservancies(data)
-        }
-        catch(error){
-            dispatch({
-                type: 'UPDATE_ALERT',
-                payload: {open: true, variant: 'danger', message: setErrorMessage(error), duration: 5000}
-            })
-        }
-        
-      }
+      //conservancy
+
+      console.log("Reremdering"
+      )
       
-      useEffect(()=>{
-        fetchConservancy()
-      },[])
+    const { data: conservanciesData, isLoading: conLoading, isError: isConservancyError, error: conservaciesError } = useQuery(["conservancies"], async () => {
+        const res = await newRequest.get('/conservancy')
+        return res.data
+        })
 
-     
+    if(!conLoading){
+      console.log(conservanciesData)
+    }
+      
 
     const submit = (data)=>{
         login(data, dispatch)
@@ -177,7 +164,7 @@ const{ dispatch}= useValue();
         register={register}/>
         </div>
 
-        <div className=" col-span-12 sm:col-span-12 md:col-span-3 lg:col-span-4 
+        {!conLoading && (<div className=" col-span-12 sm:col-span-12 md:col-span-3 lg:col-span-4 
          w-full  justify-center flex-col items-center px-4">
             <select 
             {...register('conservancy', {required : true})}
@@ -185,11 +172,11 @@ const{ dispatch}= useValue();
             className="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
                 <option>Select Conservancy</option>
                 {
-                    conservancies?.map((item, index)=> (
+                    conservanciesData?.map((item, index)=> (
                         <option key={index} value={item.conservancy_id}>{item.conservancy_name}</option>
                     ))}
             </select>
-        </div>
+        </div>)}
 
         <div className=" col-span-12 sm:col-span-12 md:col-span-3 lg:col-span-4 
          w-full  justify-center flex-col items-center px-4">
@@ -199,7 +186,7 @@ const{ dispatch}= useValue();
             className="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
                 <option>Select county</option>
                 {
-                    county?.map((item, index)=> (
+                    conservanciesData?.map((item, index)=> (
                         <option key={index} value={item.county_id}>{item.county_name}</option>
                     ))}
             </select>
