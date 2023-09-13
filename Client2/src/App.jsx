@@ -4,7 +4,7 @@ import Footer from "./components/home/Footer";
 import Navbar from './components/home/Navbar'
 import SignUp from "./pages/users/SignUp";
 import Login from "./pages/users/Login";
-import Layout from "./components/dashboard/Layout";
+import Layout from "./components/dashboard/DashboardLayout";
 import DashboardHome from "./pages/dashboard/DashboardHome";
 
 import CustomTable from "./components/dashboard/CustomTable";

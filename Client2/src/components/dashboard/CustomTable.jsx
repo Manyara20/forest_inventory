@@ -97,23 +97,23 @@ function CustomTable() {
  const columns = React.useMemo(
      () => [
        {
-         Header: 'City',
+         Header: 'Name',
          accessor: 'col1', // accessor is the "key" in the data
        },
        {
-         Header: 'Temperature',
+         Header: 'Block',
          accessor: 'col2',
        },
        {
-         Header: 'Weather Forecast',
+         Header: 'Species',
          accessor: 'col3',
        },
        {
-         Header: 'Pressure',
+         Header: 'Number',
          accessor: 'col4',
        },
        {
-         Header: 'Humidity',
+         Header: 'Entered By',
          accessor: 'col5',
        },
      ],
@@ -122,7 +122,6 @@ function CustomTable() {
 
  const defaultColumn = React.useMemo(
    () => ({
-     // Let's set up our default Filter UI
      Filter: DefaultColumnFilter,
    }),
    []
@@ -142,7 +141,7 @@ function CustomTable() {
    {
      columns,
      data,
-     defaultColumn, // Be sure to pass the defaultColumn option
+     defaultColumn,
    },
    useFilters,
    useGlobalFilter,
@@ -150,7 +149,7 @@ function CustomTable() {
  );
 
  return (
-     <div>
+     <div className=' bg-[#FFFFFF] broder-solid border-black border-2 rounded-br-2xl'>
        <table {...getTableProps()} style={{ border: 'solid 1px black' }}>
          <thead>
          {headerGroups.map((headerGroup,index) => (
@@ -206,8 +205,8 @@ function CustomTable() {
                           key={index}
                            {...cell.getCellProps()}
                            style={{
-                             padding: '10px',
-                             color: "white",
+                             padding: '5px',
+                             color: "black",
                              border: 'solid 1px gray',
                            }}
                        >
