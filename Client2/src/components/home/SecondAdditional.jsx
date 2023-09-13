@@ -21,7 +21,7 @@ const SecondAdditional = () => (
       >
         <TypingTextBlack title="| Target Categories" />
         <TitleText title={<>Who is this System For ?</>} />
-        <div className="mt-[48px] flex flex-wrap justify-between gap-[24px]">
+        <div className="mt-[480px] flex flex-wrap justify-between gap-[24px]">
           {newFeatures.map((feature) => (
             <NewFeatures key={feature.title} {...feature} />
           ))}
@@ -37,6 +37,7 @@ const SecondAdditional = () => (
           alt="get-started"
           className="w-[90%] h-[90%] object-contain"
         />
+        
       </motion.div>
     </motion.div>
   </section>

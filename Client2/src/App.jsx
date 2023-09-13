@@ -4,6 +4,7 @@ import Footer from "./components/home/Footer";
 import Navbar from './components/home/Navbar'
 import SignUp from "./pages/users/SignUp";
 import Login from "./pages/users/Login";
+import ManagementInsertForm from "./pages/management/management_insert";
 
 function App() {
 
@@ -35,6 +36,10 @@ function App() {
         {
           path: "/login",
           element: <Login />,
+        },
+        {
+          path: "/ManagementInsertForm",
+          element: <ManagementInsertForm />,
         },
       ],
     },
