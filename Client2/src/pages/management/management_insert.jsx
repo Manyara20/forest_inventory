@@ -44,7 +44,7 @@ const watchStation = watch("station");
     //county
 
     const { data: countiesData, isLoading: countyLoading, isError: isCountyError, error: countyError } = useQuery(["counties", watchConservancy], async () => {
-      const res = await newRequest.get(`/conservancy/${watchConservancy}`)
+      const res = await newRequest.get(`/conservancy/${watchCognservancy}`)
       return res.data
       });
 

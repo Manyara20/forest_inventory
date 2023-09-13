@@ -2,7 +2,7 @@ import express from 'express'
 import { createUser } from '../../controllers/usersControllers/userControllers.js';
 
 import { attemptLogin, handleGetLogin, handleLogout,} from '../../controllers/usersControllers/authController.js';
-import { getConservancy } from '../../controllers/dropdownController.js';
+import { getConservancy, getCounty } from '../../controllers/dropdownController.js';
 import { subcompartment } from '../../controllers/usersControllers/subcompartController.js';
 
 const router = express.Router();
@@ -15,6 +15,6 @@ router.delete('/login', handleLogout)
 
 ///Dropdown route
 router.get('/conservancy', getConservancy)
-router.get('/county', getCounty)
+router.get('/county/:conservancy_id', getCounty)
 
 export default router;
