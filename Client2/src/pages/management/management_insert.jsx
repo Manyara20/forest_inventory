@@ -17,10 +17,6 @@ import { login } from "../../actions/userActions";
 const ManagementInsertForm = () => {
 
 const { register, handleSubmit, watch, reset, control, formState: { errors } } = useForm({mode: 'onChange'});
-const watchConservancy= watch("conservancy");
-const watchCounty = watch("county");
-const watchStation = watch("station");
-    
 
     const{ dispatch}= useValue();
 
@@ -32,7 +28,8 @@ const watchStation = watch("station");
     const { data: conservanciesData, isLoading: conLoading, isError: isConservancyError, error: conservaciesError } = useQuery(["conservancies"], async () => {
         const res = await newRequest.get('/conservancy')
         return res.data
-        });
+        },
+      );
 
     if(isConservancyError){
       dispatch({
@@ -41,23 +38,23 @@ const watchStation = watch("station");
     })
     }
 
-    //county
+  //counties 
 
-    const { data: countiesData, isLoading: countyLoading, isError: isCountyError, error: countyError } = useQuery(["counties", watchConservancy], async () => {
-      const res = await newRequest.get(`/conservancy/${watchConservancy}`)
-      return res.data
+  const fetchCountiesByConservancy = async ()=>{
+    const res = await newRequest.get(`/county/${watch('conservancy')}`)
+    return res.data
+  }
+  const { data: counties = [], isLoading: countyLoading, isError: isCountyError, error: countyError } = useQuery(['counties', watch('conservancy')], () => fetchCountiesByConservancy(watch('conservancy')), {
+        enabled: !!watch('conservancy'),
+        onError: (error) => {
+          dispatch({
+            type: 'UPDATE_ALERT',
+            payload: {open: true, variant: 'danger', message: setErrorMessage(error), duration: 5000}
+        })
+        },
       });
 
-  if(isCountyError){
-    dispatch({
-      type: 'UPDATE_ALERT',
-      payload: {open: true, variant: 'danger', message: setErrorMessage(conservaciesError), duration: 5000}
-  })
-  }
-
-      
-
-    const submit = (data)=>{
+  const submit = (data)=>{
         login(data, dispatch)
       };
   return (
@@ -197,12 +194,12 @@ const watchStation = watch("station");
         <div className=" col-span-12 sm:col-span-12 md:col-span-3 lg:col-span-4 
          w-full  justify-center flex-col items-center px-4">
             <select 
+            defaultValue={{ label: "Select County", value: 'placeholder'}}
             {...register('county', {required : true})}
 
             className="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
-                <option>Select county</option>
                 {
-                    countiesData?.map((item, index)=> (
+                    counties.map((item, index)=> (
                         <option key={index} value={item.county_id}>{item.county_name}</option>
                     ))}
             </select>
