@@ -16,10 +16,8 @@ import { login } from "../../actions/userActions";
 
 const ManagementInsertForm = () => {
 
-const [subcounties, setSubcounties]=useState([]);
-
 const { register, handleSubmit, watch, reset, control, formState: { errors } } = useForm({mode: 'onChange'});
-//const watchConservancy= watch("conservancy");
+const watchConservancy= watch("conservancy");
 const watchCounty = watch("county");
 const watchStation = watch("station");
     
@@ -34,11 +32,29 @@ const watchStation = watch("station");
     const { data: conservanciesData, isLoading: conLoading, isError: isConservancyError, error: conservaciesError } = useQuery(["conservancies"], async () => {
         const res = await newRequest.get('/conservancy')
         return res.data
-        })
+        });
 
-    if(!conLoading){
-      console.log(conservanciesData)
+    if(isConservancyError){
+      dispatch({
+        type: 'UPDATE_ALERT',
+        payload: {open: true, variant: 'danger', message: setErrorMessage(conservaciesError), duration: 5000}
+    })
     }
+
+    //county
+
+    const { data: countiesData, isLoading: countyLoading, isError: isCountyError, error: countyError } = useQuery(["counties", watchConservancy], async () => {
+      const res = await newRequest.get(`/conservancy/${watchConservancy}`)
+      return res.data
+      });
+
+  if(isCountyError){
+    dispatch({
+      type: 'UPDATE_ALERT',
+      payload: {open: true, variant: 'danger', message: setErrorMessage(conservaciesError), duration: 5000}
+  })
+  }
+
       
 
     const submit = (data)=>{
@@ -186,7 +202,7 @@ const watchStation = watch("station");
             className="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
                 <option>Select county</option>
                 {
-                    conservanciesData?.map((item, index)=> (
+                    countiesData?.map((item, index)=> (
                         <option key={index} value={item.county_id}>{item.county_name}</option>
                     ))}
             </select>
