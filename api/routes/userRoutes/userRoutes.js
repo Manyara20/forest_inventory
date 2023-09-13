@@ -15,5 +15,6 @@ router.delete('/login', handleLogout)
 
 ///Dropdown route
 router.get('/conservancy', getConservancy)
+router.get('/county', getCounty)
 
 export default router;
