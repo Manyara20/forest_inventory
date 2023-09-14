@@ -1,6 +1,6 @@
 export const setErrorMessage = (error)=>{
 
-    let errorMessage = '';
+    let errorMessage = 'Something Went Wrong';
 
     if(error.response){
         errorMessage = error.response.data

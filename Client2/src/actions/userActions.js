@@ -1,4 +1,3 @@
-import axios from "axios";
 import newRequest from "../utils/newRequest"
 import { setErrorMessage } from "../utils/utilMethods";
 

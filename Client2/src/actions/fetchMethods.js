@@ -21,3 +21,11 @@ export const updateData = async(method, url, dataToSend, dispatch,)=>{
     }
 
 }
+
+
+export const handleError = (dispatch, errorParams)=>{
+    dispatch({
+        type: 'UPDATE_ALERT',
+        payload: {open: true, variant: 'danger', message: setErrorMessage(errorParams), duration: 5000}
+    })
+}

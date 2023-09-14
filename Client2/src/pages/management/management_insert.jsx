@@ -1,42 +1,35 @@
 import { useForm } from "react-hook-form"
-import FormHeader from '../../components/formComponents/FormHeader';
 import SubmitButton from '../../components/formComponents/SubmitButton';
 import LoadingBackdrop from '../../components/globalComponents/LoadingBackdrop'
 import NotificationToast from '../../components/globalComponents/NotificationToast'
 import { useValue } from "../../context/ContextProvider";
 import NameInput from "../../components/formComponents/NameInput";
 import NumericalInput from "../../components/formComponents/NumericalInput";
-import { useState } from "react";
-import { useEffect } from "react";
-import { setErrorMessage } from "../../utils/utilMethods";
 import newRequest from "../../utils/newRequest";
-import { async } from "regenerator-runtime";
 import { useQuery } from "@tanstack/react-query";
-import { login } from "../../actions/userActions";
+import { handleError } from "../../actions/fetchMethods";
 
 const ManagementInsertForm = () => {
 
-const { register, handleSubmit, watch, reset, control, formState: { errors } } = useForm({mode: 'onChange'});
+const { register, handleSubmit, watch, formState: { errors } } = useForm({mode: 'onChange'});
 
-    const{ dispatch}= useValue();
-
-      //conservancy
-
-      console.log("Reremdering"
-      )
+      const{ dispatch}= useValue();
       
-    const { data: conservanciesData, isLoading: conLoading, isError: isConservancyError, error: conservaciesError } = useQuery(["conservancies"], async () => {
-        const res = await newRequest.get('/conservancy')
-        return res.data
+      const { data: conservanciesData, isLoading: conLoading } = useQuery(
+        ['conservancies'],
+        async () => {
+          try {
+            const res = await newRequest.get('/conservancy'); 
+            return res.data;
+          } catch (error) {
+            console.error('Error:', error);
+            handleError(dispatch, error); 
+            throw error; 
+          }
         },
       );
-
-    if(isConservancyError){
-      dispatch({
-        type: 'UPDATE_ALERT',
-        payload: {open: true, variant: 'danger', message: setErrorMessage(conservaciesError), duration: 5000}
-    })
-    }
+      
+      
 
   //counties 
 
@@ -44,25 +37,29 @@ const { register, handleSubmit, watch, reset, control, formState: { errors } } =
     const res = await newRequest.get(`/county/${watch('conservancy')}`)
     return res.data
   }
-  const { data: counties = [], isLoading: countyLoading, isError: isCountyError, error: countyError } = useQuery(['counties', watch('conservancy')], () => fetchCountiesByConservancy(watch('conservancy')), {
-        enabled: !!watch('conservancy'),
-        onError: (error) => {
-          dispatch({
-            type: 'UPDATE_ALERT',
-            payload: {open: true, variant: 'danger', message: setErrorMessage(error), duration: 5000}
-        })
-        },
-      });
+
+  const { data: counties = [] } = useQuery(
+    ['counties', watch('conservancy')],
+    () => fetchCountiesByConservancy(watch('conservancy')),
+    {
+      enabled: !!watch('conservancy'),
+      onError: (error) => {
+        console.error('Error:', error);
+        handleError(dispatch, error);
+      },
+    }
+  );
+  
 
   const submit = (data)=>{
-        login(data, dispatch)
-      };
+    console.log(data)
+  }
+
+ 
   return (
     <>
     <LoadingBackdrop />
     <NotificationToast />
- 
-       
 <div className="h-full mx-auto border-4 rounded-2xl bg-white py-5 my-5 w-11/12">
     <form onSubmit={handleSubmit(submit)}>
         <div className="grid grid-cols-12 gap-1">
