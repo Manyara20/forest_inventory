@@ -85,7 +85,7 @@ function Table({columns, data}) {
  );
 
  return (
-        <>
+        <div className=' overflow-x-auto'>
         <button className=" text-red-400" onClick={resetResizing}> Reset Resizing</button>
        <table className='border-collapse m-8' {...getTableProps()}>
          <thead>
@@ -142,7 +142,7 @@ function Table({columns, data}) {
          })}
          </tbody>
        </table>
-    </>
+    </div>
  );
 }
 
