@@ -73,3 +73,15 @@ export const createUser = (req, res, next)=>{
     });
    
 };
+
+//list all users
+
+export const getAllUsers = async (req, res, next)=>{
+try {
+    const q = "SELECT id, name, email FROM users"
+    const {rows } = await pool.query(q)
+    return res.status(200).json(rows) 
+} catch (error) {
+    return next(createError(500, "Something Went Wrong"))
+}
+}

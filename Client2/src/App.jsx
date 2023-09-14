@@ -8,12 +8,14 @@ import ManagementInsertForm from "./pages/management/management_insert";
 import Layout from "./components/dashboard/DashboardLayout";
 import DashboardHome from "./pages/dashboard/DashboardHome";
 
-import CustomTable from "./components/dashboard/CustomTable";
 import CustomDatagrid from "./components/dashboard/Datagrid";
+import Users from "./pages/dashboard/Users";
+import DataTable from "./components/dashboard/ResizableTable";
 
 const LoginHoc = Layout(DashboardHome);
-const UsersHoc = Layout(CustomTable);
+const UsersHoc = Layout(Users);
 const ProductsHOC = Layout(CustomDatagrid)
+const DataHOC = Layout(DataTable)
 
 function App() {
 
@@ -65,6 +67,10 @@ function App() {
     {
       path: "/dashboard/products",
       element: < ProductsHOC />,
+    },
+    {
+      path: "/dashboard/data",
+      element: < DataHOC />,
     },
   ]
 
