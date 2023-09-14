@@ -19,7 +19,7 @@ export const menu = [
     },
     {
       id: 2,
-      title: "lists",
+      title: "Administration",
       listItems: [
         {
           id: 1,
@@ -29,20 +29,20 @@ export const menu = [
         },
         {
           id: 2,
-          title: "Products",
-          url: "/dashboard/products",
+          title: "Permissions",
+          url: "/dashboard/permissions",
           icon: "product.svg",
         },
         {
           id: 3,
-          title: "Orders",
-          url: "/orders",
+          title: "Roles",
+          url: "/dashboard/roles",
           icon: "order.svg",
         },
         {
           id: 4,
-          title: "Posts",
-          url: "/posts",
+          title: "User Roles",
+          url: "/user_roles",
           icon: "post.svg",
         },
       ],

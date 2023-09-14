@@ -53,9 +53,9 @@ function Table({columns, data}) {
  const defaultColumn = React.useMemo(
    () => ({
      Filter: DefaultColumnFilter,
-     minWidth: 30,
+     minWidth: 70,
      maxWidth: 450,
-     width: 150,
+     width: 200,
    }),
    []
  )
@@ -86,14 +86,14 @@ function Table({columns, data}) {
 
  return (
         <div className=' overflow-x-auto'>
-        <button className=" text-red-400" onClick={resetResizing}> Reset Resizing</button>
-       <table className='border-collapse m-8' {...getTableProps()}>
+        <button className=" text-white font-extrabold rounded-full w-fit px-2 py-1 bg-slate-500 my-2" onClick={resetResizing}> Reset Resizing</button>
+       <table className='table table-zebra' {...getTableProps()}>
          <thead>
          {headerGroups.map((headerGroup) => (
              <tr
               {...headerGroup.getHeaderGroupProps()}>
                {headerGroup.headers.map((column) => (
-                   <th className='border-[1.5px] border-solid border-black py-2 px-1'
+                   <th
                        {...column.getHeaderProps(column.getSortByToggleProps())}
                    >
                      {column.render('Header')}
@@ -104,14 +104,14 @@ function Table({columns, data}) {
                                : '🔼'
                            : ''}
                     </span>
-                    <div {...column.getResizerProps()} className={`inline-block bg-blue-500 w-1 h-full absolute right-0 top-0 translate-x-1/2 z-10 touch-none`} />
+                    <div {...column.getResizerProps()} className={`inline-block bg-gray-400 w-1 h-full absolute right-0 top-0 translate-x-1/2 z-10 touch-none`} />
                     <div>{column.canFilter ? column.render('Filter') : null}</div>
                    </th>
                ))}
              </tr>
          ))}
          <tr>
-           <th className=' border-solid border-[1.5px] border-black py-2 px-1'
+           <th
              colSpan={visibleColumns.length}
            >
              <GlobalFilter
@@ -129,7 +129,7 @@ function Table({columns, data}) {
                <tr key={index} {...row.getRowProps()}>
                  {row.cells.map((cell, index) => {
                    return (
-                       <td className='border-[1.5px] border-solid border-black py-2 px-1'
+                       <td
                           key={index}
                            {...cell.getCellProps()}
                        >

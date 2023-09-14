@@ -78,10 +78,11 @@ export const createUser = (req, res, next)=>{
 
 export const getAllUsers = async (req, res, next)=>{
 try {
-    const q = "SELECT id, name, email FROM users"
+    const q = "SELECT id, name, email, phone, kfs_no FROM users"
     const {rows } = await pool.query(q)
     return res.status(200).json(rows) 
 } catch (error) {
+    console.log(error)
     return next(createError(500, "Something Went Wrong"))
 }
 }

@@ -9,13 +9,17 @@ import Layout from "./components/dashboard/DashboardLayout";
 import DashboardHome from "./pages/dashboard/DashboardHome";
 
 import CustomDatagrid from "./components/dashboard/Datagrid";
-import Users from "./pages/dashboard/Users";
-import DataTable from "./components/dashboard/ResizableTable";
+//import Users from "./pages/dashboard/Users";
+import Permission from "./pages/dashboard/administration/Permission";
+import Users from "./pages/dashboard/administration/Users";
+import NotFound from "./pages/redirection/NotFound";
+import Roles from "./pages/dashboard/administration/Roles";
 
-const LoginHoc = Layout(DashboardHome);
+const HomeHoc = Layout(DashboardHome);
 const UsersHoc = Layout(Users);
-const ProductsHOC = Layout(CustomDatagrid)
-const DataHOC = Layout(DataTable)
+const PermissionsHOC = Layout(Permission)
+const RolesHOC =Layout(Roles)
+const DataHOC = Layout(Users)
 
 function App() {
 
@@ -52,24 +56,32 @@ function App() {
           path: "/ManagementInsertForm",
           element: <ManagementInsertForm />,
         },
+        {
+          path: "*",
+          element: <NotFound />,
+        },
       ],
     },
   ]
   const dashboardRoutes = [
     {
       path: "/dashboard",
-      element: <LoginHoc />,
+      element: <HomeHoc />,
     },
     {
       path: "/dashboard/users",
       element: < UsersHoc />,
     },
     {
-      path: "/dashboard/products",
-      element: < ProductsHOC />,
+      path: "/dashboard/permissions",
+      element: < PermissionsHOC />,
     },
     {
-      path: "/dashboard/data",
+      path: "/dashboard/roles",
+      element: < RolesHOC />,
+    },
+    {
+      path: "/dashboard/user_roles",
       element: < DataHOC />,
     },
   ]
