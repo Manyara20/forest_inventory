@@ -7,7 +7,7 @@ import { getConservancy, getCounty, getStation } from '../../controllers/dropdow
 import { createPermission, getPermissions, updatePermission } from '../../controllers/permissionControllers.js';
 import { addRolePermissions, createRole, getRolePermisions, getRoles, removeRolesPermission, updateRole } from '../../controllers/roleControllers.js';
 import { addModelRoles, getUserRoles, removeUserRole,  } from '../../controllers/usersRoles.js';
-import { management_insert } from '../../controllers/plantationmgtControllers/managementController.js';
+import { management_insert, searchManagement } from '../../controllers/plantationmgtControllers/managementController.js';
 
 const router = express.Router();
 
@@ -15,7 +15,6 @@ router.post('/register', createUser)
 router.get('/users', getAllUsers)
 router.post('/login', attemptLogin)
 // router.post('/subcompartment', subcompartment)
-router.post('/subcompartment', management_insert)
 router.get('/login', handleGetLogin)
 router.delete('/login', handleLogout)
 
@@ -42,6 +41,11 @@ router.delete('/role_permissions/:id', removeRolesPermission)
 router.get('/user_roles', getUserRoles);
 router.post('/user_roles', addModelRoles);
 router.delete('/user_roles/:id', removeUserRole)
+
+//
+
+router.post('/subcompartment', management_insert)
+router.get('/managementSearch/:statName/:subName', searchManagement)
 
 
 

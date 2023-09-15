@@ -1,29 +1,29 @@
 import { useForm } from "react-hook-form"
-import FormHeader from '../../components/formComponents/FormHeader';
 import SubmitButton from '../../components/formComponents/SubmitButton';
 import LoadingBackdrop from '../../components/globalComponents/LoadingBackdrop'
 import NotificationToast from '../../components/globalComponents/NotificationToast'
 import { useValue } from "../../context/ContextProvider";
 import NameInput from "../../components/formComponents/NameInput";
 import NumericalInput from "../../components/formComponents/NumericalInput";
-import { useState } from "react";
-import { useEffect } from "react";
-
-import { setErrorMessage } from "../../utils/utilMethods";
 import newRequest from "../../utils/newRequest";
-import { async } from "regenerator-runtime";
 import { useQuery } from "@tanstack/react-query";
-import { login } from "../../actions/userActions";
 import styles from "../../styles";
 import { handleError, updateData } from "../../actions/fetchMethods";
+import { useLocation, } from "react-router-dom";
+import SelectInput from "../../components/formComponents/SelectInput";
 
 const ManagementInsertForm = () => {
 
-const { register, handleSubmit, watch, reset, control, formState: { errors } } = useForm({mode: 'onChange'});
+const state =useLocation().state
+
+const { register, handleSubmit, watch, reset,  formState: { errors } } = useForm({mode: 'onChange'});
+
+if(state){
+  reset(state)
+}
 
     const{ dispatch}= useValue();
 
-      //conservancy
 
       const { data: conservanciesData, isLoading: conLoading } = useQuery(
         ['conservancies'],
@@ -66,7 +66,7 @@ const fetchStationByCounty = async ()=>{
     const res = await newRequest.get(`/station/${watch('county')}`)
     return res.data
   }
-  const { data: station = [], isLoading: stationLoading, isError: isstationError, error: stationError } = useQuery(['station', watch('county')], () => fetchStationByCounty(watch('county')), {
+  const { data: station = [], } = useQuery(['station', watch('county')], () => fetchStationByCounty(watch('county')), {
         enabled: !!watch('county'),
         onError: (error) => {
           console.error('Error:', error);
@@ -83,7 +83,6 @@ const fetchStationByCounty = async ()=>{
     <LoadingBackdrop />
     <NotificationToast />
  
-       
 <div className="h-full mx-auto border-4 rounded-2xl bg-white py-5 my-5 w-11/12">
     <form onSubmit={handleSubmit(submit)}>
         <div className="grid grid-cols-12 gap-1">
@@ -124,7 +123,7 @@ const fetchStationByCounty = async ()=>{
         register={register}/>
         </div> */}
 
-
+{/* 
         {!conLoading && (<div className=" col-span-12 sm:col-span-12 md:col-span-3 lg:col-span-4 
          w-full  justify-center flex-col items-center px-4">
             <label className={`${styles.formLabels}`}>Conservancy</label>
@@ -138,7 +137,24 @@ const fetchStationByCounty = async ()=>{
                         <option key={index} value={item.conservancy_id}>{item.conservancy_name}</option>
                     ))}
             </select>
-        </div>)}
+        </div>)} */}
+        {
+          !conLoading && (
+            <div className="col-span-12 sm:col-span-12 md:col-span-3 lg:col-span-4 
+            w-full  justify-center flex-col items-center px-4">
+            <SelectInput
+              label="Conservancy"
+              name="conservancy"
+              register={register}
+              errors={errors}
+              ifRequired={true}
+              options={conservanciesData}
+              optionValue={'conservancy_id'}
+              optionLabel={'conservancy_name'}
+              />
+              </div>
+          )
+        }
         
         <div className=" col-span-12 sm:col-span-12 md:col-span-3 lg:col-span-4 
          w-full  justify-center flex-col items-center px-4">

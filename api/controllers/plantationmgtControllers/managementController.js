@@ -1,5 +1,5 @@
 import createError from "../../createError.js";
-import { storeSubcompartment } from "../../models/plantationmgtModels/subcompartmentModels.js";
+import { searchSubcompartment, storeSubcompartment } from "../../models/plantationmgtModels/subcompartmentModels.js";
 import pool from "../../models/postgres.js";
 
 const log = (message)=>{
@@ -23,4 +23,17 @@ export const management_insert = (req, res, next)=>{
         res.status(200).json("Register Succesful. Confirmation Message subcomaprtment") 
 
         });
+    }
+
+
+    //get subcompartments
+
+    export const searchManagement = async (req, res, next)=>{
+        try {
+            const {rows}= await pool.query(searchSubcompartment, [req.params.statName, req.params.subName ])
+            return res.status(200).json(rows)
+        } catch (error) {
+            console.log(error)
+            next(createError(500, "Something Went Wrong"))
+        }
     }
