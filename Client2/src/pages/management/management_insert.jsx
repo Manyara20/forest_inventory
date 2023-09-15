@@ -15,7 +15,7 @@ import { async } from "regenerator-runtime";
 import { useQuery } from "@tanstack/react-query";
 import { login } from "../../actions/userActions";
 import styles from "../../styles";
-import { updateData } from "../../actions/fetchMethods";
+import { handleError, updateData } from "../../actions/fetchMethods";
 
 const ManagementInsertForm = () => {
 
