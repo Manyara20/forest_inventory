@@ -14,6 +14,7 @@ import Permission from "./pages/dashboard/administration/Permission";
 import Users from "./pages/dashboard/administration/Users";
 import NotFound from "./pages/redirection/NotFound";
 import Roles from "./pages/dashboard/administration/Roles";
+import SearchManagement from "./pages/management/SearchManagement";
 
 const HomeHoc = Layout(DashboardHome);
 const UsersHoc = Layout(Users);
@@ -55,6 +56,10 @@ function App() {
         {
           path: "/ManagementInsertForm",
           element: <ManagementInsertForm />,
+        },
+        {
+          path: "/searchGrid",
+          element: <SearchManagement />,
         },
         {
           path: "*",

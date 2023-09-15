@@ -45,7 +45,7 @@ router.delete('/user_roles/:id', removeUserRole)
 //
 
 router.post('/subcompartment', management_insert)
-router.get('/managementSearch/:statName/:subName', searchManagement)
+router.get('/managementSearch', searchManagement)
 
 
 

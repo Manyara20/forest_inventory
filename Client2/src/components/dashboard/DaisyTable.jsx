@@ -5,7 +5,7 @@ function DaisyTable({ rowData, headings, actions}) {
     <div className="overflow-x-auto bg-white mx-2 rounded-lg">
       <table className="table table-zebra">
         <thead>
-          <tr className=' text-[17px] font-bold'>
+          <tr className='font-bold'>
             {headings.map((header, index) => (
               <th
                 key={index}
@@ -26,6 +26,7 @@ function DaisyTable({ rowData, headings, actions}) {
               {headings.map((heading, columnIndex) => (
                 <td
                   key={columnIndex}
+                  className=' text-black font-normal'
                 >
                   {dataRow[heading.name]}
                 </td>

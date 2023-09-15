@@ -29,8 +29,9 @@ export const management_insert = (req, res, next)=>{
     //get subcompartments
 
     export const searchManagement = async (req, res, next)=>{
+        console.log(req.query.subcompartment)
         try {
-            const {rows}= await pool.query(searchSubcompartment, [req.params.statName, req.params.subName ])
+            const {rows}= await pool.query(searchSubcompartment, [req.query.station, req.query.subcompartment])
             return res.status(200).json(rows)
         } catch (error) {
             console.log(error)
