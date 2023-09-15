@@ -175,7 +175,32 @@ const fetchStationByCounty = async ()=>{
         errors={errors}
         register={register}/>
         </div>
-        
+        {!conLoading && (<div className=" col-span-12 sm:col-span-12 md:col-span-3 lg:col-span-4 
+         w-full  justify-center flex-col items-center px-4">
+            <label className={`${styles.formLabels}`}>Tree Species</label>
+            <select 
+            {...register('species', {required : true})}
+
+            className="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
+                <option>Select Species</option>
+                {
+                    conservanciesData?.map((item, index)=> (
+                        <option key={index} value={item.conservancy_id}>{item.conservancy_name}</option>
+                    ))}
+            </select>
+        </div>)}
+        <div className=" col-span-12 sm:col-span-12 md:col-span-4 lg:col-span-4 
+         w-full  justify-center flex-col items-center px-4">
+         <NumericalInput
+        placeholder='planting_year'
+        name="planting_year"
+        label='Planting Year                                        '
+        max={2050}
+        mi={5}
+        ifRequired={true}
+        errors={errors}
+        register={register}/>
+        </div>
         
         <div className=" col-span-12 sm:col-span-12 md:col-span-4 lg:col-span-4 
          w-full  justify-center flex-col items-center px-4">
@@ -215,18 +240,7 @@ const fetchStationByCounty = async ()=>{
         </div>
         
         
-        <div className=" col-span-12 sm:col-span-12 md:col-span-4 lg:col-span-4 
-         w-full  justify-center flex-col items-center px-4">
-         <NumericalInput
-        placeholder='planting_year'
-        name="planting_year"
-        label='Planting Year                                        '
-        max={2050}
-        mi={5}
-        ifRequired={true}
-        errors={errors}
-        register={register}/>
-        </div>
+       
         <div className=" col-span-12 sm:col-span-12 md:col-span-4 lg:col-span-4 
          w-full  justify-center flex-col items-center px-4">
          <NumericalInput

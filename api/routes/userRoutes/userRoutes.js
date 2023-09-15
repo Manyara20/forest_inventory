@@ -14,7 +14,7 @@ router.post('/subcompartment', management_insert)
 router.get('/login', handleGetLogin)
 router.delete('/login', handleLogout)
 
-///Dropdown route
+///Dropdown routecd
 router.get('/conservancy', getConservancy)
 router.get('/county/:conservancy_id', getCounty)
 router.get('/station/:county_id', getStation)
