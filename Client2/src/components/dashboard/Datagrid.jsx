@@ -2,8 +2,8 @@ import  { useRef } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
-import { CsvExportModule } from '@ag-grid-community/csv-export';
-
+import 'ag-grid-community/styles/ag-theme-balham.css';
+import '@astrouxds/ag-grid-theme/dist/main.css'
 
 function CustomDataGrid() {
 
@@ -35,14 +35,19 @@ function CustomDataGrid() {
     });
     }
 
-    const defaultColDef={sortable:true,editable:true,flex:1,filter:true,floatingFilter:true,}
+    const defaultColDef={
+      sortable:true,
+      editable:true,
+      flex:1,
+      filter:true,
+      resizable:true,
+      floatingFilter:true,}
 
     const rowSelectionType='multiple'
   
   return (
-    <div className="ag-theme-alpine" style={{ height: 400, width: '100%' }}>
-         <button className=' rounded-md w-[55px] h-[20px] bg-gray-100 text-black font-bold pb-5 mb-5' onClick={()=>onExportClick()}>Export</button>
-
+    <div className="ag-theme-astro" >
+         <button className=' rounded-full bg-green-200 text-black font-bold p-3 mb-3' onClick={()=>onExportClick()}>Export</button>
       <AgGridReact
                 rowData={rowData}
                 columnDefs={columnDefs}

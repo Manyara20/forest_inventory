@@ -1,42 +1,35 @@
 import { useForm } from "react-hook-form"
-import FormHeader from '../../components/formComponents/FormHeader';
 import SubmitButton from '../../components/formComponents/SubmitButton';
 import LoadingBackdrop from '../../components/globalComponents/LoadingBackdrop'
 import NotificationToast from '../../components/globalComponents/NotificationToast'
 import { useValue } from "../../context/ContextProvider";
 import NameInput from "../../components/formComponents/NameInput";
 import NumericalInput from "../../components/formComponents/NumericalInput";
-import { useState } from "react";
-import { useEffect } from "react";
-
-import { setErrorMessage } from "../../utils/utilMethods";
 import newRequest from "../../utils/newRequest";
-import { async } from "regenerator-runtime";
 import { useQuery } from "@tanstack/react-query";
-import { login } from "../../actions/userActions";
-import styles from "../../styles";
-import { updateData } from "../../actions/fetchMethods";
+import { handleError } from "../../actions/fetchMethods";
 
 const ManagementInsertForm = () => {
 
-const { register, handleSubmit, watch, reset, control, formState: { errors } } = useForm({mode: 'onChange'});
+const { register, handleSubmit, watch, formState: { errors } } = useForm({mode: 'onChange'});
 
-    const{ dispatch}= useValue();
-
-      //conservancy
-
-      console.log("Reremdering"
-      )
+      const{ dispatch}= useValue();
       
-    const { data: conservanciesData, isLoading: conLoading, isError: isConservancyError, error: conservaciesError } = useQuery(["conservancies"], async () => {
-        const res = await newRequest.get('/conservancy')
-        return res.data
+      const { data: conservanciesData, isLoading: conLoading } = useQuery(
+        ['conservancies'],
+        async () => {
+          try {
+            const res = await newRequest.get('/conservancy'); 
+            return res.data;
+          } catch (error) {
+            console.error('Error:', error);
+            handleError(dispatch, error); 
+            throw error; 
+          }
         },
       );
-
-    if(isConservancyError){
-      console.log(conservaciesError)
-    }
+      
+      
 
   //counties 
 
@@ -44,44 +37,33 @@ const { register, handleSubmit, watch, reset, control, formState: { errors } } =
     const res = await newRequest.get(`/county/${watch('conservancy')}`)
     return res.data
   }
-  const { data: counties = [], isLoading: countyLoading, isError: isCountyError, error: countyError } = useQuery(['counties', watch('conservancy')], () => fetchCountiesByConservancy(watch('conservancy')), {
-        enabled: !!watch('conservancy'),
-        onError: (error) => {
-          dispatch({
-            type: 'UPDATE_ALERT',
-            payload: {open: true, variant: 'danger', message: setErrorMessage(error), duration: 5000}
-        })
-        },
-      });
-//station
 
-const fetchStationByCounty = async ()=>{
-    const res = await newRequest.get(`/station/${watch('county')}`)
-    return res.data
+  const { data: counties = [] } = useQuery(
+    ['counties', watch('conservancy')],
+    () => fetchCountiesByConservancy(watch('conservancy')),
+    {
+      enabled: !!watch('conservancy'),
+      onError: (error) => {
+        console.error('Error:', error);
+        handleError(dispatch, error);
+      },
+    }
+  );
+  
+
+  const submit = (data)=>{
+    console.log(data)
   }
-  const { data: station = [], isLoading: stationLoading, isError: isstationError, error: stationError } = useQuery(['station', watch('county')], () => fetchStationByCounty(watch('county')), {
-        enabled: !!watch('county'),
-        onError: (error) => {
-          dispatch({
-            type: 'UPDATE_ALERT',
-            payload: {open: true, variant: 'danger', message: setErrorMessage(error), duration: 5000}
-        })
-        },
-      });
 
-      const submit = (data)=>{
-        updateData('post', '/subcompartment', data, dispatch)
-      };
+ 
   return (
     <>
     <LoadingBackdrop />
     <NotificationToast />
- 
-       
 <div className="h-full mx-auto border-4 rounded-2xl bg-white py-5 my-5 w-11/12">
     <form onSubmit={handleSubmit(submit)}>
         <div className="grid grid-cols-12 gap-1">
-         {/* <div className=" col-span-12 sm:col-span-12 md:col-span-4 lg:col-span-4 
+         <div className=" col-span-12 sm:col-span-12 md:col-span-4 lg:col-span-4 
          w-full  justify-center flex-col items-center px-4">
          <NameInput
         placeholder='conservancy1'
@@ -96,9 +78,9 @@ const fetchStationByCounty = async ()=>{
         <div className=" col-span-12 sm:col-span-12 md:col-span-4 lg:col-span-4 
          w-full  justify-center flex-col items-center px-4">
          <NameInput
-        placeholder='county1'
-        name="county1"
-        label='County1                                        '
+        placeholder='county'
+        name="county"
+        label='County                                        '
         maximLength={50}
         minLength={5}
         ifRequired={true}
@@ -116,52 +98,6 @@ const fetchStationByCounty = async ()=>{
         ifRequired={true}
         errors={errors}
         register={register}/>
-        </div> */}
-
-
-        {!conLoading && (<div className=" col-span-12 sm:col-span-12 md:col-span-3 lg:col-span-4 
-         w-full  justify-center flex-col items-center px-4">
-            <label className={`${styles.formLabels}`}>Conservancy</label>
-            <select 
-            {...register('conservancy', {required : true})}
-
-            className="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
-                <option>Select Conservancy</option>
-                {
-                    conservanciesData?.map((item, index)=> (
-                        <option key={index} value={item.conservancy_id}>{item.conservancy_name}</option>
-                    ))}
-            </select>
-        </div>)}
-        
-        <div className=" col-span-12 sm:col-span-12 md:col-span-3 lg:col-span-4 
-         w-full  justify-center flex-col items-center px-4">
-            <label className={`${styles.formLabels}`}>County</label>
-            <select 
-            defaultValue={{ label: "Select County", value: 'placeholder'}}
-            {...register('county', {required : true})}
-
-            className="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
-                {
-                    counties.map((item, index)=> (
-                        <option key={index} value={item.county_id}>{item.county_name}</option>
-                    ))}
-            </select>
-        </div>
-        
-        <div className=" col-span-12 sm:col-span-12 md:col-span-3 lg:col-span-4 
-         w-full  justify-center flex-col items-center px-4">
-            <label className={`${styles.formLabels}`}>Forest Station</label>
-            <select 
-            defaultValue={{ label: "Select Station", value: 'placeholder'}}
-            {...register('station', {required : true})}
-
-            className="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
-                {
-                    station.map((item, index)=> (
-                        <option key={index} value={item.station_id}>{item.station_name}</option>
-                    ))}
-            </select>
         </div>
         <div className=" col-span-12 sm:col-span-12 md:col-span-4 lg:col-span-4 
          w-full  justify-center flex-col items-center px-4">
@@ -175,6 +111,7 @@ const fetchStationByCounty = async ()=>{
         errors={errors}
         register={register}/>
         </div>
+<<<<<<< HEAD
         {!conLoading && (<div className=" col-span-12 sm:col-span-12 md:col-span-3 lg:col-span-4 
          w-full  justify-center flex-col items-center px-4">
             <label className={`${styles.formLabels}`}>Tree Species</label>
@@ -189,6 +126,10 @@ const fetchStationByCounty = async ()=>{
                     ))}
             </select>
         </div>)}
+=======
+        
+
+>>>>>>> 8873f551670aa5ed42e6ba0d434bf442f0cfc418
         <div className=" col-span-12 sm:col-span-12 md:col-span-4 lg:col-span-4 
          w-full  justify-center flex-col items-center px-4">
          <NumericalInput
@@ -201,7 +142,22 @@ const fetchStationByCounty = async ()=>{
         errors={errors}
         register={register}/>
         </div>
+<<<<<<< HEAD
         
+=======
+        <div className=" col-span-12 sm:col-span-12 md:col-span-4 lg:col-span-4 
+         w-full  justify-center flex-col items-center px-4">
+         <NumericalInput
+        placeholder='mdbh'
+        name="mdbh"
+        label='Mean diameter(mdbh in cm)'
+        max={4000}
+        mi={50}
+        ifRequired={true}
+        errors={errors}
+        register={register}/>
+        </div>
+>>>>>>> 8873f551670aa5ed42e6ba0d434bf442f0cfc418
         <div className=" col-span-12 sm:col-span-12 md:col-span-4 lg:col-span-4 
          w-full  justify-center flex-col items-center px-4">
         <NumericalInput
@@ -228,6 +184,7 @@ const fetchStationByCounty = async ()=>{
         </div>
         <div className=" col-span-12 sm:col-span-12 md:col-span-4 lg:col-span-4 
          w-full  justify-center flex-col items-center px-4">
+<<<<<<< HEAD
          <NumericalInput
         placeholder='area'
         name="area"
@@ -293,6 +250,8 @@ const fetchStationByCounty = async ()=>{
         </div>
         <div className=" col-span-12 sm:col-span-12 md:col-span-4 lg:col-span-4 
          w-full  justify-center flex-col items-center px-4">
+=======
+>>>>>>> 8873f551670aa5ed42e6ba0d434bf442f0cfc418
          <NameInput
         placeholder='remarks'
         name="remarks"
@@ -303,8 +262,34 @@ const fetchStationByCounty = async ()=>{
         errors={errors}
         register={register}/>
         </div>
-        
 
+        {!conLoading && (<div className=" col-span-12 sm:col-span-12 md:col-span-3 lg:col-span-4 
+         w-full  justify-center flex-col items-center px-4">
+            <select 
+            {...register('conservancy', {required : true})}
+
+            className="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
+                <option>Select Conservancy</option>
+                {
+                    conservanciesData?.map((item, index)=> (
+                        <option key={index} value={item.conservancy_id}>{item.conservancy_name}</option>
+                    ))}
+            </select>
+        </div>)}
+
+        <div className=" col-span-12 sm:col-span-12 md:col-span-3 lg:col-span-4 
+         w-full  justify-center flex-col items-center px-4">
+            <select 
+            defaultValue={{ label: "Select County", value: 'placeholder'}}
+            {...register('county', {required : true})}
+
+            className="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
+                {
+                    counties.map((item, index)=> (
+                        <option key={index} value={item.county_id}>{item.county_name}</option>
+                    ))}
+            </select>
+        </div>
      {/* ////// */}
         <div className=" col-span-12 sm:col-span-12 md:col-span-4 lg:col-span-4 w-full flex justify-center flex-col items-center px-2">
         <SubmitButton

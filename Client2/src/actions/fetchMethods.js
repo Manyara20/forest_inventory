@@ -29,3 +29,15 @@ export const handleError = (dispatch, errorParams)=>{
         payload: {open: true, variant: 'danger', message: setErrorMessage(errorParams), duration: 5000}
     })
 }
+
+export const fetchDataReactQuerry = async (dispatch, dest)=>{
+        try {
+          const res = await newRequest.get(dest); 
+          console.log(dest)
+          return res.data;
+        } catch (error) {
+          console.error('Error:', error);
+          handleError(dispatch, error); 
+          throw error; 
+        }
+}
