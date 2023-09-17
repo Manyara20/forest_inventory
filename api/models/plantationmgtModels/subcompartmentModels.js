@@ -9,6 +9,6 @@ SELECT *
 FROM subcompartment sb
 JOIN station st ON sb.forest_station = st.station_id
 WHERE st.station_name ILIKE '%' || $1 || '%'
-OR sb.subcompartment ILIKE '%' || $2 || '%'
+AND sb.subcompartment ILIKE '%' || $2 || '%'
 ORDER BY sb.subcompartment ASC;
 `

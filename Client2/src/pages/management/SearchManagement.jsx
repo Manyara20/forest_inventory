@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form"
-import SubmitButton from '../../components/formComponents/SubmitButton';
 import LoadingBackdrop from '../../components/globalComponents/LoadingBackdrop'
 import NotificationToast from '../../components/globalComponents/NotificationToast'
 import { useValue } from "../../context/ContextProvider";
@@ -23,8 +22,8 @@ const SearchManagement = () => {
       },
       {
         enabled: false,
-        staleTime: 30*1000,
-        cacheTime: 30*1000
+        staleTime: 10*1000,
+        cacheTime: 30*1000,
       }
     );
 
@@ -63,7 +62,7 @@ const SearchManagement = () => {
               label=''
               maximLength={60}
               minLength={3}
-              ifRequired={true}
+              ifRequired={false}
               errors={errors}
               register={register}/>
             </div>
@@ -74,7 +73,7 @@ const SearchManagement = () => {
                 label=''
                 maximLength={60}
                 minLength={3}
-                ifRequired={true}
+                ifRequired={false}
                 errors={errors}
                 register={register}/>
             </div>

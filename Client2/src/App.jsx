@@ -7,18 +7,17 @@ import Login from "./pages/users/Login";
 import ManagementInsertForm from "./pages/management/management_insert";
 import Layout from "./components/dashboard/DashboardLayout";
 import DashboardHome from "./pages/dashboard/DashboardHome";
-
-import CustomDatagrid from "./components/dashboard/Datagrid";
-//import Users from "./pages/dashboard/Users";
 import Permission from "./pages/dashboard/administration/Permission";
 import Users from "./pages/dashboard/administration/Users";
 import NotFound from "./pages/redirection/NotFound";
 import Roles from "./pages/dashboard/administration/Roles";
 import SearchManagement from "./pages/management/SearchManagement";
+import RolePermissions from "./pages/dashboard/administration/RolePermissions";
 
 const HomeHoc = Layout(DashboardHome);
 const UsersHoc = Layout(Users);
 const PermissionsHOC = Layout(Permission)
+const RolePermissionsHOC = Layout(RolePermissions)
 const RolesHOC =Layout(Roles)
 const DataHOC = Layout(Users)
 
@@ -84,6 +83,10 @@ function App() {
     {
       path: "/dashboard/roles",
       element: < RolesHOC />,
+    },
+    {
+      path: "/dashboard/rolesPermissions",
+      element: < RolePermissionsHOC />,
     },
     {
       path: "/dashboard/user_roles",
