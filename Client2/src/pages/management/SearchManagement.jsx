@@ -15,7 +15,7 @@ const SearchManagement = () => {
 
     const { register, watch, handleSubmit, formState: { errors } } = useForm({mode: 'onSubmit'});
 
-    const { data: searchResults = [], isLoading, refetch } = useQuery(
+    const { data: searchResults = [], refetch } = useQuery(
       ["management", { station: watch('station'), subcompartment: watch('subcompartment') }],
       () => {
         return fetchDataReactQuerry(dispatch, `/managementSearch?station=${watch('station')}&subcompartment=${watch('subcompartment')}`);
@@ -36,15 +36,13 @@ const SearchManagement = () => {
     }
 
     const actions = useMemo(()=>[
-        {label:"Edit", onClick: log} ,
         {label:"Delete", onClick: log},
     ],[])
 
-  
-    if(!isLoading){
-      console.log(searchResults)
-    }
-  
+    const linkActions = useMemo(()=>[
+      {label:"Edit", to: '/editManagement'},
+    ],[])
+
     const submit = () => {
       refetch(); 
     };
@@ -84,7 +82,7 @@ const SearchManagement = () => {
             </form> 
         </div>
         <div>
-         < DaisyTable rowData={memoizedSearchResults} headings={memoizedHeadings} actions={actions} />
+         < DaisyTable rowData={memoizedSearchResults} headings={memoizedHeadings} actions={actions} linkActions={linkActions} />
         </div>
         </div>
   )

@@ -57,6 +57,10 @@ function App() {
           element: <ManagementInsertForm />,
         },
         {
+          path: "/editManagement",
+          element: <ManagementInsertForm />,
+        },
+        {
           path: "/searchGrid",
           element: <SearchManagement />,
         },

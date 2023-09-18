@@ -1,5 +1,5 @@
 import createError from "../../createError.js";
-import { searchSubcompartment, storeSubcompartment } from "../../models/plantationmgtModels/subcompartmentModels.js";
+import { searchSubcompartment, storeSubcompartment, updateSubcompartment } from "../../models/plantationmgtModels/subcompartmentModels.js";
 import pool from "../../models/postgres.js";
 
 const log = (message)=>{
@@ -7,9 +7,8 @@ const log = (message)=>{
 }
 export const management_insert = (req, res, next)=>{
     
-    log(req.body);
-    const values =[req.body.conservancy, req.body.county, req.body.station,
-         req.body.sub_compartment,req.body.species,req.body.xcordinate,
+    const values =[req.body.conservancy, req.body.county, req.body.forest_station,
+         req.body.subcompartment,req.body.species,req.body.xcordinate,
          req.body.ycordinate,req.body.area,req.body.planting_year,req.body.density,
          req.body.mdbh,req.body.mht,req.body.age,req.body.remarks]
 
@@ -36,5 +35,21 @@ export const management_insert = (req, res, next)=>{
         } catch (error) {
             console.log(error)
             next(createError(500, "Something Went Wrong"))
+        }
+    }
+
+    export const editManagement = async (req, res, next)=>{
+        console.log(req.body)
+        console.log(req.params.id)
+        const values = [req.body.conservancy, req.body.county, req.body.forest_station,
+            req.body.subcompartment,req.body.species,req.body.xcordinate,
+            req.body.ycordinate,req.body.area,req.body.planting_year,req.body.density,
+            req.body.mdbh,req.body.mht,req.body.age,req.body.remarks, req.params.id]
+        try {
+            await pool.query(updateSubcompartment, values)
+            return res.status(200).json("Update Succesfully")
+        } catch (error) {
+            log(error)
+            return next(createError(500, "Something Went Wrong"))
         }
     }

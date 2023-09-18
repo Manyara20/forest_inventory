@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
-function DaisyTable({ rowData, headings, actions}) {
+function DaisyTable({ rowData, headings, actions, linkActions}) {
   return (
     <div className="overflow-x-auto bg-white mx-2 rounded-lg">
       <table className="table table-zebra">
@@ -33,6 +34,16 @@ function DaisyTable({ rowData, headings, actions}) {
               ))}
 
             <td className="px-6 py-4 whitespace-nowrap">
+              {linkActions && (linkActions?.map((action, actionIndex) => (
+                  <Link
+                    key={actionIndex}
+                    className=" bg-amber-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mr-2 no-underline"
+                    to={action?.to}
+                    state={dataRow}
+                  >
+                    {action?.label}
+                  </Link>
+                )))}
                 {actions.map((action, actionIndex) => (
                   <button
                     key={actionIndex}
@@ -55,6 +66,7 @@ DaisyTable.propTypes={
     rowData: PropTypes.array,
     headings: PropTypes.array,
     actions: PropTypes.array,
+    linkActions: PropTypes.array,
 }
 
 export default DaisyTable;

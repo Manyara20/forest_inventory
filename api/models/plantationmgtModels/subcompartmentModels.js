@@ -12,3 +12,24 @@ WHERE st.station_name ILIKE '%' || $1 || '%'
 AND sb.subcompartment ILIKE '%' || $2 || '%'
 ORDER BY sb.subcompartment ASC;
 `
+
+export const updateSubcompartment = `
+UPDATE subcompartment
+SET
+    conservancy = $1,     
+    county = $2,          
+    forest_station = $3,
+    subcompartment=$4,
+    species = $5,
+    xcordinate = $6,
+    ycordinate = $7,
+    area = $8,
+    planting_year = $9,
+    density = $10,
+    mdbh = $11,
+    mht = $12,             
+    age = $13,             
+    remarks = $14 
+WHERE
+    subcompartment_id = $15;
+`
