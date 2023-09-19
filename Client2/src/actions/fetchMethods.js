@@ -33,11 +33,24 @@ export const handleError = (dispatch, errorParams)=>{
 export const fetchDataReactQuerry = async (dispatch, dest)=>{
         try {
           const res = await newRequest.get(dest); 
-          console.log(dest)
           return res.data;
         } catch (error) {
           console.error('Error:', error);
           handleError(dispatch, error); 
           throw error; 
         }
+}
+
+export const updateDataReactQuery = async(method, url, dataToSend,)=>{
+
+    const config = {method: method, url: url, data: dataToSend};
+
+    try {
+        const res = await newRequest(config)
+        return res.data
+    } catch (error) {
+        console.error('Error:', error); 
+        throw error; 
+    }
+
 }

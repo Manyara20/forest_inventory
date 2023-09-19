@@ -15,6 +15,7 @@ import SearchManagement from "./pages/management/SearchManagement";
 import RolePermissions from "./pages/dashboard/administration/RolePermissions";
 import CreatePermissions from "./pages/dashboard/administration/CreatePermissions";
 import { NonPermissionRoutes } from "./utils/PrivateRoutes";
+import CreateRole from "./pages/dashboard/administration/CreateRole";
 
 const HomeHoc = Layout(DashboardHome);
 const UsersHoc = Layout(Users);
@@ -23,6 +24,7 @@ const RolePermissionsHOC = Layout(RolePermissions)
 const RolesHOC =Layout(Roles)
 const DataHOC = Layout(Users)
 const CreatePermissionsHOC=Layout(CreatePermissions)
+const CreateRolesHOC=Layout(CreateRole)
 
 function App() {
 
@@ -104,8 +106,20 @@ function App() {
       element: < CreatePermissionsHOC />,
     },
     {
-      path: "/dashboard/editPermissions",
+      path: "/dashboard/editPermissionss",
       element: (<NonPermissionRoutes permissionNumber={13}><CreatePermissionsHOC/></NonPermissionRoutes>),
+    },
+    {
+      path: "/dashboard/editPermissions",
+      element: <CreatePermissionsHOC />,
+    },
+    {
+      path: "/dashboard/createRole",
+      element: < CreateRolesHOC />,
+    },
+    {
+      path: "/dashboard/editRole",
+      element: < CreateRolesHOC />,
     },
   ]
 

@@ -22,7 +22,7 @@ export const getRoles=(req, res)=>{
 export const createRole =(req, res)=>{
 
     const q = {text: 'INSERT INTO roles (name, guard_name) VALUES($1, $2)',
-                values: [req.body.name, req.body.guardName]}
+                values: [req.body.name, req.body.guard_name]}
 
     pool.query(q, (err, data)=>{
         if(err){
@@ -31,7 +31,6 @@ export const createRole =(req, res)=>{
         }
 
         return res.status(200).json("New Role Created Succesfully")
-
     })
 
 }

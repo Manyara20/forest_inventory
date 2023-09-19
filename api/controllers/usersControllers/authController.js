@@ -1,11 +1,13 @@
 import createError from "../../createError.js";
 import pool from "../../models/postgres.js";
 import bcrypt from 'bcrypt'
+import { getAllUserPermissions } from "../../utils/getUserPermission.js";
 
-export const handleGetLogin = (req, res,) => {
+export const handleGetLogin = async (req, res,) => {
 
     if (req.session.user && req.session.user.email) {
-      res.status(200).json({ loggedIn: true, email: req.session.user.email, id: req.session.user.id});
+      const permisions= await getAllUserPermissions(req.session.user.id)
+      res.status(200).json({ loggedIn: true, email: req.session.user.email, id: req.session.user.id, permisions: permisions});
     } else {
       res.status(200).json({ loggedIn: false });
     }

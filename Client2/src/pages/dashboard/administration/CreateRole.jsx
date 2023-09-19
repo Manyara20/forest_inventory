@@ -2,13 +2,15 @@ import { useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import NameInput from '../../../components/formComponents/NameInput';
 import { useLocation } from 'react-router-dom';
-import { updateData } from '../../../actions/fetchMethods';
+import { fetchDataReactQuerry, handleError, updateData, updateDataReactQuery } from '../../../actions/fetchMethods';
 import NotificationToast from '../../../components/globalComponents/NotificationToast';
 import LoadingBackdrop from '../../../components/globalComponents/LoadingBackdrop';
 import { useValue } from '../../../context/ContextProvider';
 import SubmitButton from '../../../components/formComponents/SubmitButton';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import MultipleCheckBox from '../../../components/formComponents/MultipleCheckBox';
 
-const CreatePermissions = () => {
+const CreateRole = () => {
 
     const state =useLocation().state
 
@@ -16,13 +18,31 @@ const CreatePermissions = () => {
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm({mode: 'onChange'});
 
+    const { data: permissions = [], } = useQuery(
+        ['permissions'],
+        () => fetchDataReactQuerry(dispatch, '/permissions'),
+        {
+          cacheTime: 30*1000,
+          staleTime: 30*1000, 
+        }
+      );
+
+    const { mutate } = useMutation(updateDataReactQuery,
+        {
+            onError: (error)=>{
+                handleError(dispatch, error)
+            },
+            onSuccess: (data)=>{
+                console.log(data)
+            }
+        });
+
     const submit = (data)=>{
         if(state){
-          console.log("executing update")
-          updateData('patch', `/permissions/${state.id}`, data, dispatch)
+          mutate('patch', `/role/${state.id}`, data, dispatch)
         }
         else{
-          updateData('post', '/permissions', data, dispatch)
+          mutate('post', '/roles', data, dispatch)
         }
       };
 
@@ -35,8 +55,8 @@ const CreatePermissions = () => {
             <LoadingBackdrop />
             <NotificationToast />
             <form onSubmit={handleSubmit(submit)}>
-            <div className=' flex items-center justify-center mx-auto flex-col max-w-md border-[2px] rounded-md px-3 broder-solid border-purple-50 shadow-lg shadow-purple-200'>
-                <div>
+            <div className=' flex items-center justify-center mx-auto flex-col max-w-md border-[2px] rounded-md px-3 broder-solid border-purple-50 shadow-lg shadow-purple-200 py-3'>
+                <div className='w-full'>
                     <NameInput
                     placeholder='Guard Name'
                     name="guard_name"
@@ -47,7 +67,7 @@ const CreatePermissions = () => {
                     errors={errors}
                     register={register}/>
                 </div>
-                <div>
+                <div className='w-full'>
                     <NameInput
                     placeholder='Name'
                     name="name"
@@ -57,6 +77,12 @@ const CreatePermissions = () => {
                     ifRequired={true}
                     errors={errors}
                     register={register}/>
+                </div>
+                <div className=' flex justify-start w-full'>
+                < MultipleCheckBox
+                    options={permissions}
+                    register={register}
+                    title='Permissions'/>
                 </div>
                 <div>
                     < SubmitButton
@@ -71,4 +97,4 @@ const CreatePermissions = () => {
             )
 }
 
-export default CreatePermissions
+export default CreateRole
