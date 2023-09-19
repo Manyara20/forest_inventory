@@ -12,13 +12,14 @@ import { handleError, updateData } from "../../actions/fetchMethods";
 import { useLocation, } from "react-router-dom";
 import SelectInput from "../../components/formComponents/SelectInput";
 import { useEffect } from "react";
+import DisabledNumericalField from "../../components/formComponents/DisabledNumericalField";
 
 const ManagementInsertForm = () => {
 
 const state =useLocation().state
 
 
-const { register, handleSubmit, watch, reset, formState: { errors } } = useForm({mode: 'onChange'});
+const { register, handleSubmit, watch, reset, setValue, formState: { errors } } = useForm({mode: 'onChange'});
 
       const{ dispatch}= useValue();
 
@@ -39,7 +40,7 @@ const { register, handleSubmit, watch, reset, formState: { errors } } = useForm(
         },
       );
       
-      
+  //
 
   //counties 
 
@@ -75,6 +76,14 @@ const { register, handleSubmit, watch, reset, formState: { errors } } = useForm(
             },
             },
           );
+      //age calculation
+
+      const plantingYear = watch('planting_year'); 
+
+      const calculateAge = (startYear) => {
+        const currentYear = new Date().getFullYear();
+        return currentYear - parseInt(startYear);
+      };
 
       const submit = (data)=>{
         if(state){
@@ -91,15 +100,19 @@ const { register, handleSubmit, watch, reset, formState: { errors } } = useForm(
       // eslint-disable-next-line react-hooks/exhaustive-deps
       },[])
 
+      useEffect(()=>{
+        if(plantingYear){
+          setValue('age', calculateAge(plantingYear), { shouldValidate: true })
+        }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      },[plantingYear])
+
   return (
     <>
     <LoadingBackdrop />
     <NotificationToast />
  
 <div className="h-full mx-auto border-4 rounded-2xl bg-white py-5 my-5 w-11/12">
-  <button className=" bg-red-300" onClick={()=>{
-    console.log({county: watch('county')})
-  }}> Click Me</button>
     <form onSubmit={handleSubmit(submit)}>
         <div className="grid grid-cols-12 gap-1">
         {
@@ -128,6 +141,7 @@ const { register, handleSubmit, watch, reset, formState: { errors } } = useForm(
             {...register('county', {required : true})}
 
             className="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
+                 <option value=''>{'Select County'}</option>
                 {
                     counties.map((item, index)=> (
                         <option key={index} value={item.county_id}>{item.county_name}</option>
@@ -265,18 +279,20 @@ const { register, handleSubmit, watch, reset, formState: { errors } } = useForm(
         errors={errors}
         register={register}/>
         </div>
-        <div className=" col-span-12 sm:col-span-12 md:col-span-4 lg:col-span-4 
-         w-full  justify-center flex-col items-center px-4">
-         <NumericalInput
-        placeholder='age'
-        name="age"
-        label='Age(in years)'
-        max={4000}
-        mi={50}
-        ifRequired={true}
-        errors={errors}
-        register={register}/>
-        </div>
+        {
+          plantingYear && (
+            <div className=" col-span-12 sm:col-span-12 md:col-span-4 lg:col-span-4 w-full  justify-center flex-col items-center px-4">
+             < DisabledNumericalField 
+             name='age'
+             placeholder='age'
+             ifRequired={true}
+             label="Age (in Years)"
+             errors={errors}
+             register={register}
+             />
+           </div>
+          )
+        }
         <div className=" col-span-12 sm:col-span-12 md:col-span-4 lg:col-span-4 
          w-full  justify-center flex-col items-center px-4">
          <NameInput

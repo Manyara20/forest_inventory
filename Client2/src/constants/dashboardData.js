@@ -42,7 +42,13 @@ export const menu = [
         {
           id: 4,
           title: "User Roles",
-          url: "/user_roles",
+          url: "/dashboard/user_roles",
+          icon: "post.svg",
+        },
+        {
+          id: 4,
+          title: "Role Permissions",
+          url: "/dashboard/rolePermissions",
           icon: "post.svg",
         },
       ],

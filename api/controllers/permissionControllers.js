@@ -6,7 +6,7 @@ export const createPermission =(req, res, next)=>{
 
     const q ={
         text: 'INSERT INTO permissions (name, guard_name) VALUES($1, $2)',
-        values: [req.body.name, req.body.guardName]
+        values: [req.body.name, req.body.guard_name]
     }
 
     pool.query(q, (err, data)=>{
@@ -28,7 +28,7 @@ export const updatePermission=(req, res)=>{
 
     const q= {
         text: 'UPDATE permissions SET "name"=$1, "guard_name"=$2 WHERE "id"=$3',
-        values: [req.body.name, req.body.guardName, req.params.id]
+        values: [req.body.name, req.body.guard_name, req.params.id]
     }
 
     pool.query(q, (err, data)=>{

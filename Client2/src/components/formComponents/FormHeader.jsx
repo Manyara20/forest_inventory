@@ -14,7 +14,7 @@ const FormHeader=(props)=>{
                     className="h-14 w-14"
                     src={kfsLogo}/>
             </div>
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-white-900">
+            <h2 className="mt-6 text-center text-3xl font-extrabold text-black">
                 {heading}
             </h2>
             <p className="text-center text-sm text-gray-600 mt-5">
