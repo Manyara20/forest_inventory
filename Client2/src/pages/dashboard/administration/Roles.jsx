@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 
 const headings = [
     {name: "id", title: "Id"},
+    {name: "guard_name", title: "Guard Name"},
     {name: "name", title: "Name"},
 ]
 

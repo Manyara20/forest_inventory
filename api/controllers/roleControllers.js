@@ -1,9 +1,11 @@
+import createError from "../createError.js"
 import pool from "../models/postgres.js"
 import { rolePermissionsQuery } from "../models/roleModels/roleQueries.js"
+import { insertManyRoles } from "../utils/insertManyRoles.js"
 
 export const getRoles=(req, res)=>{
 
-    const q ="SELECT id, name FROM roles"
+    const q ="SELECT id, guard_name, name FROM roles"
 
     pool.query(q, (err, data)=>{
         if(err){
@@ -19,20 +21,30 @@ export const getRoles=(req, res)=>{
 
 
 
-export const createRole =(req, res)=>{
+export const createRole = async (req, res,next)=>{
 
-    const q = {text: 'INSERT INTO roles (name, guard_name) VALUES($1, $2)',
+    const q = {text: `INSERT INTO roles (name, guard_name) 
+                      VALUES($1, $2)
+                      RETURNING id;`,
                 values: [req.body.name, req.body.guard_name]}
 
-    pool.query(q, (err, data)=>{
-        if(err){
-            console.log(err)
-            return res.status(500).json("Something Went Wrong. Try Again Later")
+    try {
+        const {rows} = await pool.query(q)
+        const id = rows[0].id
+
+        if(req.body.selectedPermissions){
+            await insertManyRoles(req.body.selectedPermissions, id)
         }
 
-        return res.status(200).json("New Role Created Succesfully")
-    })
+        return res.status(200, "Role Created Succesfully");
 
+    } catch (error) {
+        console.log(error)
+        if(error.code==='23505') {
+            return next(createError(401, "Role Already Exists"))
+        }
+        return next(createError(500, "Something Went Wrong"))
+    }
 }
 
 export const updateRole=(req, res)=>{

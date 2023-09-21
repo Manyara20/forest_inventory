@@ -2,12 +2,12 @@ import { useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import NameInput from '../../../components/formComponents/NameInput';
 import { useLocation } from 'react-router-dom';
-import { fetchDataReactQuerry, handleError, updateData, updateDataReactQuery } from '../../../actions/fetchMethods';
+import { fetchDataReactQuerry, handleError, updateDataReactQuery } from '../../../actions/fetchMethods';
 import NotificationToast from '../../../components/globalComponents/NotificationToast';
 import LoadingBackdrop from '../../../components/globalComponents/LoadingBackdrop';
 import { useValue } from '../../../context/ContextProvider';
 import SubmitButton from '../../../components/formComponents/SubmitButton';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import MultipleCheckBox from '../../../components/formComponents/MultipleCheckBox';
 
 const CreateRole = () => {
@@ -17,6 +17,8 @@ const CreateRole = () => {
     const { dispatch}=useValue();
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm({mode: 'onChange'});
+
+    const queryClient = useQueryClient()
 
     const { data: permissions = [], } = useQuery(
         ['permissions'],
@@ -33,16 +35,21 @@ const CreateRole = () => {
                 handleError(dispatch, error)
             },
             onSuccess: (data)=>{
-                console.log(data)
+              dispatch({type: 'UPDATE_ALERT', payload: {open: true, variant: 'success', duration: 5000, message: data}})
+              queryClient.invalidateQueries("roles")
             }
         });
 
     const submit = (data)=>{
         if(state){
-          mutate('patch', `/role/${state.id}`, data, dispatch)
+          mutate({method: 'patch',
+                  url: `/roles/${state.id}`,
+                  dataToSend: data})
         }
         else{
-          mutate('post', '/roles', data, dispatch)
+          mutate({method: 'post',
+                  url: '/roles',
+                  dataToSend: data})
         }
       };
 
@@ -78,12 +85,16 @@ const CreateRole = () => {
                     errors={errors}
                     register={register}/>
                 </div>
+                {
+                  !state && (
                 <div className=' flex justify-start w-full'>
-                < MultipleCheckBox
-                    options={permissions}
-                    register={register}
-                    title='Permissions'/>
+                  < MultipleCheckBox
+                      options={permissions}
+                      register={register}
+                      title='Permissions'/>
                 </div>
+                  )
+                }
                 <div>
                     < SubmitButton
                     text='Submit'

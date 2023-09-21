@@ -41,9 +41,13 @@ export const fetchDataReactQuerry = async (dispatch, dest)=>{
         }
 }
 
-export const updateDataReactQuery = async(method, url, dataToSend,)=>{
+export const updateDataReactQuery = async({method, url, dataToSend})=>{
 
     const config = {method: method, url: url, data: dataToSend};
+
+    console.log(url)
+    console.log(method)
+    console.log(dataToSend)
 
     try {
         const res = await newRequest(config)

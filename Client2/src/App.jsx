@@ -16,6 +16,7 @@ import RolePermissions from "./pages/dashboard/administration/RolePermissions";
 import CreatePermissions from "./pages/dashboard/administration/CreatePermissions";
 import { NonPermissionRoutes } from "./utils/PrivateRoutes";
 import CreateRole from "./pages/dashboard/administration/CreateRole";
+import AddPermission from "./pages/dashboard/administration/AddPermisions";
 
 const HomeHoc = Layout(DashboardHome);
 const UsersHoc = Layout(Users);
@@ -25,6 +26,7 @@ const RolesHOC =Layout(Roles)
 const DataHOC = Layout(Users)
 const CreatePermissionsHOC=Layout(CreatePermissions)
 const CreateRolesHOC=Layout(CreateRole)
+const ActionsTableHOC=Layout(AddPermission)
 
 function App() {
 
@@ -120,6 +122,10 @@ function App() {
     {
       path: "/dashboard/editRole",
       element: < CreateRolesHOC />,
+    },
+    {
+      path: "/dashboard/actionsTable",
+      element: < ActionsTableHOC />,
     },
   ]
 
