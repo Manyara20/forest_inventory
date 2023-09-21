@@ -1,6 +1,6 @@
 import createError from "../createError.js"
 import pool from "../models/postgres.js"
-import { rolePermissionsQuery } from "../models/roleModels/roleQueries.js"
+import { getIndividualPermissionsQuery, rolePermissionsQuery } from "../models/roleModels/roleQueries.js"
 import { insertManyRoles } from "../utils/insertManyRoles.js"
 
 export const getRoles=(req, res)=>{
@@ -22,6 +22,7 @@ export const getRoles=(req, res)=>{
 
 
 export const createRole = async (req, res,next)=>{
+    console.log(req.body)
 
     const q = {text: `INSERT INTO roles (name, guard_name) 
                       VALUES($1, $2)
@@ -36,7 +37,7 @@ export const createRole = async (req, res,next)=>{
             await insertManyRoles(req.body.selectedPermissions, id)
         }
 
-        return res.status(200, "Role Created Succesfully");
+        return res.status(200).json("Role Add Succesful");
 
     } catch (error) {
         console.log(error)
@@ -119,7 +120,7 @@ export const getRolePermisions =(req, res)=>{
 
 //remove role permissions
 
-export const removeRolesPermission =(req, res)=>{
+export const removeRolesPermission1 =(req, res)=>{
 
     const permission = req.body.permission.trim();
 
@@ -161,7 +162,6 @@ export const removeRolesPermission =(req, res)=>{
 
 }
 
-//add role permission
 
 export const addRolePermissions =(req, res)=>{
 
@@ -186,4 +186,27 @@ export const addRolePermissions =(req, res)=>{
         return res.status(200).json("Permission Added Succesfully")
         
     })
+}
+
+
+export const getIndividualRolePermissions = async (req, res, next)=>{
+    try {
+        const { rows } = await pool.query(getIndividualPermissionsQuery, [req.query.roleId])
+        return res.status(200).json(rows[0].permissionsarray)
+    } catch (error) {
+        next(createError(500, "Something Went Wrong"))
+    }
+}
+
+export const removeRolesPermission = async (req, res, next)=>{
+    const q= {
+        text: 'DELETE FROM role_has_permissions WHERE "role_id"=$1 AND "permission_id"=$2',
+        values: [req.params.roleId, req.params.permId]
+    }
+    try {
+        await  pool.query(q)
+        return res.status(200).json("Removed Succesfull")
+    } catch (error) {
+        next(createError(500,"Something Went Wrong"))
+    }
 }

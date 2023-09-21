@@ -37,6 +37,7 @@ const CreateRole = () => {
             onSuccess: (data)=>{
               dispatch({type: 'UPDATE_ALERT', payload: {open: true, variant: 'success', duration: 5000, message: data}})
               queryClient.invalidateQueries("roles")
+              queryClient.invalidateQueries("rolesPermissions")
             }
         });
 

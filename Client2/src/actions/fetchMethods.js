@@ -45,10 +45,6 @@ export const updateDataReactQuery = async({method, url, dataToSend})=>{
 
     const config = {method: method, url: url, data: dataToSend};
 
-    console.log(url)
-    console.log(method)
-    console.log(dataToSend)
-
     try {
         const res = await newRequest(config)
         return res.data
@@ -58,3 +54,14 @@ export const updateDataReactQuery = async({method, url, dataToSend})=>{
     }
 
 }
+
+export const deleteDataReactQuery = async({url})=>{
+    try {
+        const res = await newRequest.delete(url)
+        return res.data
+    } catch (error) {
+        console.error('Error:', error); 
+        throw error; 
+    }
+}
+

@@ -124,7 +124,7 @@ function App() {
       element: < CreateRolesHOC />,
     },
     {
-      path: "/dashboard/actionsTable",
+      path: "/dashboard/rolePermissions/:roleId",
       element: < ActionsTableHOC />,
     },
   ]
