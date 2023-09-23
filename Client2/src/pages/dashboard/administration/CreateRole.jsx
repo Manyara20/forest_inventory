@@ -92,6 +92,7 @@ const CreateRole = () => {
                   < MultipleCheckBox
                       options={permissions}
                       register={register}
+                      name='selectedPermissions'
                       title='Permissions'/>
                 </div>
                   )
