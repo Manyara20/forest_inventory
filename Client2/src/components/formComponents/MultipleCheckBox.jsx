@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const MultipleCheckBox = ({ options, register, title }) => {
+const MultipleCheckBox = ({ options, register, title, name }) => {
   return (
     <div className='flex justify-start w-full flex-col'>
         <div className=' my-2 py-2'>
@@ -15,7 +15,7 @@ const MultipleCheckBox = ({ options, register, title }) => {
                 className='checkbox checkbox-primary'
                 type="checkbox"
                 value={option.id}
-                {...register('selectedPermissions')}
+                {...register(name)}
                 />
                 <span className="label-text pl-2 font-medium">{option.name}</span>
             </label>
@@ -30,7 +30,8 @@ const MultipleCheckBox = ({ options, register, title }) => {
 MultipleCheckBox.propTypes = {
   options: PropTypes.array.isRequired,
   register: PropTypes.object,
-  title: PropTypes.string
+  title: PropTypes.string,
+  name: PropTypes.string,
 };
 
 export default MultipleCheckBox;

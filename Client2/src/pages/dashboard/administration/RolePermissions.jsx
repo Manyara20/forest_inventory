@@ -3,6 +3,7 @@ import { fetchDataReactQuerry } from '../../../actions/fetchMethods'
 import { useValue } from '../../../context/ContextProvider'
 import { useQuery } from '@tanstack/react-query'
 import GroupedTable from '../../../components/dashboard/ArrayAggTable'
+import { useNavigate } from 'react-router-dom'
 
 const headings = [
     {name: "id", title: "Id"},
@@ -10,13 +11,18 @@ const headings = [
     {name: "permissions", title: "Permission"},
 ]
 
-const log = (message)=>{
-    console.log(message)
+const log =()=>{
+    console.log("Item")
 }
 
 const RolePermissions = () => {
 
     const dispatch =useValue();
+    const navigate = useNavigate();
+
+    const navigateEdit = (item)=>{
+        navigate(`/dashboard/rolePermissions/${item.id}`)
+    }
 
     const memoizedHeadings = useMemo(()=>headings, []);
 
@@ -29,11 +35,11 @@ const RolePermissions = () => {
     ], []);
 
     const actions = useMemo(()=>[
-        {label:"Edit", onClick: log} ,
+        {label:"Edit", onClick: navigateEdit} ,
         {label:"Delete", onClick: log},
     ],[])
 
-    const minActions = useMemo(() => ({ label: "Edit", handleClick: log }), []);
+    //const minActions = useMemo(() => ({ label: "Edit", handleClick: log }), []);
 
     //data
     const { data: roles = [], } = useQuery(
@@ -49,7 +55,7 @@ const RolePermissions = () => {
         data={memoizedRolePermissions} 
         allHeadings={memoizedHeadings} 
         actions={actions} 
-        minAction={minActions}
+        minAction={null}
         columnsToSplit={memoizedCollumsToSplit}
         columnsNotToSplit={memoizedCollumsNotToSplit} />
     </div>

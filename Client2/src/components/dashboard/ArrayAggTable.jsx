@@ -25,11 +25,16 @@ const GroupedTable = ({ data, columnsNotToSplit, columnsToSplit, allHeadings, mi
                 {columnsToSplit.map((column, columnIndex) => (
                   <td key={columnIndex}>
                     {rows[column].split(',').map((item)=>(
-                            <p key={item}>{item} <span>
-                              <button 
-                                className=' bg-purple-200 font-bold px-3 rounded-full ml-2 py-1' 
-                                onClick={() => minAction.handleClick(item)}>{minAction.label}
-                              </button></span></p>
+                            <p key={item}>{item}
+                            {
+                              minAction && (
+                                <span>
+                                <button 
+                                  className=' bg-purple-200 font-bold px-3 rounded-full ml-2 py-1' 
+                                  onClick={() => minAction?.handleClick(item)}>{minAction?.label}
+                                </button></span>
+                              )
+                            }</p>
                         ))}
                   </td>
                 ))}

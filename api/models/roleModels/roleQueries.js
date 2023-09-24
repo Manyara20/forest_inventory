@@ -12,3 +12,8 @@ export const rolePermissionsQuery = `
   GROUP BY 
       rp.role_id, rl.name, rl.id;
 `;
+
+export const getIndividualPermissionsQuery = `
+SELECT ARRAY_AGG(permission_id) AS permissionsarray
+FROM role_has_permissions
+WHERE role_id = $1;`
