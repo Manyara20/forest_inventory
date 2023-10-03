@@ -10,16 +10,12 @@ const headings = [
     {name: "name", title: "Name"},
     {name: "permissions", title: "Permission"},
 ]
-
 const log =()=>{
     console.log("Item")
 }
-
 const RolePermissions = () => {
-
     const dispatch =useValue();
     const navigate = useNavigate();
-
     const navigateEdit = (item)=>{
         navigate(`/dashboard/rolePermissions/${item.id}`)
     }

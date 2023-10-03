@@ -44,6 +44,7 @@ function DaisyTable({ rowData, headings, actions, linkActions}) {
                     {action?.label}
                   </Link>
                 )))}
+                
                 {actions.map((action, actionIndex) => (
                   <button
                     key={actionIndex}

@@ -7,7 +7,7 @@ const log = (message)=>{
 }
 export const management_insert = (req, res, next)=>{
     
-    const values =[req.body.conservancy, req.body.county, req.body.forest_station,
+    const values =[req.body.conservancy, req.body.county, req.body.station,
          req.body.subcompartment,req.body.species,req.body.xcordinate,
          req.body.ycordinate,req.body.area,req.body.planting_year,req.body.density,
          req.body.mdbh,req.body.mht,req.body.age,req.body.remarks]
@@ -41,7 +41,7 @@ export const management_insert = (req, res, next)=>{
     export const editManagement = async (req, res, next)=>{
         console.log(req.body)
         console.log(req.params.id)
-        const values = [req.body.conservancy, req.body.county, req.body.forest_station,
+        const values = [req.body.conservancy, req.body.county, req.body.station,
             req.body.subcompartment,req.body.species,req.body.xcordinate,
             req.body.ycordinate,req.body.area,req.body.planting_year,req.body.density,
             req.body.mdbh,req.body.mht,req.body.age,req.body.remarks, req.params.id]

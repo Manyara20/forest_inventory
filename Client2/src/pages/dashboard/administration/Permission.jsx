@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
 
 const headings = [
-    {name: "id", title: "Id"},
+    // {name: "id", title: "Id"},
     {name: "name", title: "Name"},
     {name: "guard_name", title: "Guard Name"},
 ]
@@ -33,7 +33,7 @@ const Permission = () => {
         }
       );
     
-      const memoizedPermissions = useMemo(() => permissions, [permissions]);
+    const memoizedPermissions = useMemo(() => permissions, [permissions]);
 
     const actions = useMemo(()=>[
         {label:"Delete", onClick: log},
@@ -50,14 +50,15 @@ const Permission = () => {
           className=" bg-green-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mr-2 no-underline mb-3"
           to='/dashboard/createPermissions'
         >
-          Create Permission
+          Create Permission 
         </Link>
     </div>
     <div>
+      
         < DaisyTable rowData={memoizedPermissions} headings={memoizedHeadings} actions={actions} linkActions={linkActions} />
     </div>
+
     </>
   )
 }
-
 export default Permission

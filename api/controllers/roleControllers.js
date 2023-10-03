@@ -27,7 +27,7 @@ export const createRole = async (req, res,next)=>{
     const q = {text: `INSERT INTO roles (name, guard_name) 
                       VALUES($1, $2)
                       RETURNING id;`,
-                values: [req.body.name, req.body.guard_name]}
+                values: [req.body.name, req.body.selectedPermissions]}
 
     try {
         const {rows} = await pool.query(q)

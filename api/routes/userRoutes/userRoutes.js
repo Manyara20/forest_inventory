@@ -1,8 +1,8 @@
 import express from 'express'
-import { createUser, getAllUsers } from '../../controllers/usersControllers/userControllers.js';
+import { createUser, getAllUsers, searchUser } from '../../controllers/usersControllers/userControllers.js';
 
 import { attemptLogin, handleGetLogin, handleLogout,} from '../../controllers/usersControllers/authController.js';
-import { getConservancy, getCounty, getStation } from '../../controllers/dropdownController.js';
+import { getConservancy, getCounty, getStation, retrievepermissions } from '../../controllers/dropdownController.js';
 //import { subcompartment } from '../../controllers/usersControllers/subcompartController.js';
 import { createPermission, getPermissions, updatePermission } from '../../controllers/permissionControllers.js';
 import { addRolePermissions, createRole, getIndividualRolePermissions, getRolePermisions, getRoles, removeRolesPermission, removeRolesPermission1, updateRole } from '../../controllers/roleControllers.js';
@@ -17,11 +17,13 @@ router.post('/login', attemptLogin)
 // router.post('/subcompartment', subcompartment)
 router.get('/login', handleGetLogin)
 router.delete('/login', handleLogout)
+router.get('/userSearch', searchUser)
 
 ///Dropdown routecd
 router.get('/conservancy', getConservancy)
 router.get('/county/:conservancy_id', getCounty)
 router.get('/station/:county_id', getStation)
+router.get('/retrievepermissions', retrievepermissions)
 
 //permisions
 router.get('/permissions', getPermissions)

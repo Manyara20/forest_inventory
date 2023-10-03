@@ -4,9 +4,18 @@ INSERT INTO subcompartment (conservancy, county, forest_station, subcompartment,
 VALUES ($1, $2, $3, $4,$5,$6, $7, $8, $9,$10,$11,$12,$13,$14);
 `
 
+
+// JOIN model_has_roles rm ON us.id = rm.model_id
+// JOIN roles rs on rm.role_id=rs.id 
+// WHERE us.email ILIKE '%' || $1 || '%'
+// AND rs.name ILIKE '%' || $2 || '%'
+// ORDER BY us.id ASC;`
+
 export const searchSubcompartment = `
 SELECT *
 FROM subcompartment sb
+join conservancy cy on sb.conservancy=cy.conservancy_id
+join county ct on sb.county=ct.county_id
 JOIN station st ON sb.forest_station = st.station_id
 WHERE st.station_name ILIKE '%' || $1 || '%'
 AND sb.subcompartment ILIKE '%' || $2 || '%'

@@ -2,14 +2,15 @@ import { useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import NameInput from '../../../components/formComponents/NameInput';
 import { useLocation } from 'react-router-dom';
-import { updateData } from '../../../actions/fetchMethods';
+import { fetchDataReactQuerry, handleError, updateDataReactQuery } from '../../../actions/fetchMethods';
 import NotificationToast from '../../../components/globalComponents/NotificationToast';
 import LoadingBackdrop from '../../../components/globalComponents/LoadingBackdrop';
 import { useValue } from '../../../context/ContextProvider';
 import SubmitButton from '../../../components/formComponents/SubmitButton';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import MultipleCheckBox from '../../../components/formComponents/MultipleCheckBox';
 
-const CreatePermissions = () => {
-  
+const CreateRole = () => {
 
     const state =useLocation().state
 
@@ -17,13 +18,39 @@ const CreatePermissions = () => {
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm({mode: 'onChange'});
 
+    const queryClient = useQueryClient()
+
+    const { data: permissions = [], } = useQuery(
+        ['permissions'],
+        () => fetchDataReactQuerry(dispatch, '/permissions'),
+        {
+          cacheTime: 30*1000,
+          staleTime: 30*1000, 
+        }
+      );
+
+    const { mutate } = useMutation(updateDataReactQuery,
+        {
+            onError: (error)=>{
+                handleError(dispatch, error)
+            },
+            onSuccess: (data)=>{
+              dispatch({type: 'UPDATE_ALERT', payload: {open: true, variant: 'success', duration: 5000, message: data}})
+              queryClient.invalidateQueries("roles")
+              queryClient.invalidateQueries("rolesPermissions")
+            }
+        });
+
     const submit = (data)=>{
         if(state){
-          console.log("executing update")
-          updateData('patch', `/permissions/${state.id}`, data, dispatch)
+          mutate({method: 'patch',
+                  url: `/roles/${state.id}`,
+                  dataToSend: data})
         }
         else{
-          updateData('post', '/permissions', data, dispatch)
+          mutate({method: 'post',
+                  url: '/roles',
+                  dataToSend: data})
         }
       };
 
@@ -36,8 +63,8 @@ const CreatePermissions = () => {
             <LoadingBackdrop />
             <NotificationToast />
             <form onSubmit={handleSubmit(submit)}>
-            <div className=' flex items-center justify-center mx-auto flex-col max-w-md border-[2px] rounded-md px-3 broder-solid border-purple-50 shadow-lg shadow-purple-200'>
-                <div>
+            <div className=' flex items-center justify-center mx-auto flex-col max-w-md border-[2px] rounded-md px-3 broder-solid border-purple-50 shadow-lg shadow-purple-200 py-3'>
+                <div className='w-full'>
                     <NameInput
                     placeholder='Guard Name'
                     name="guard_name"
@@ -48,7 +75,7 @@ const CreatePermissions = () => {
                     errors={errors}
                     register={register}/>
                 </div>
-                <div>
+                <div className='w-full'>
                     <NameInput
                     placeholder='Name'
                     name="name"
@@ -59,6 +86,17 @@ const CreatePermissions = () => {
                     errors={errors}
                     register={register}/>
                 </div>
+                {
+                  !state && (
+                <div className=' flex justify-start w-full'>
+                  < MultipleCheckBox
+                      options={permissions}
+                      register={register}
+                      name='selectedPermissions'
+                      title='Permissions'/>
+                </div>
+                  )
+                }
                 <div>
                     < SubmitButton
                     text='Submit'
@@ -72,4 +110,4 @@ const CreatePermissions = () => {
             )
 }
 
-export default CreatePermissions
+export default CreateRole

@@ -18,6 +18,10 @@ import { NonPermissionRoutes } from "./utils/PrivateRoutes";
 import CreateRole from "./pages/dashboard/administration/CreateRole";
 import AddPermission from "./pages/dashboard/administration/AddPermisions";
 import CreateUser from "./pages/dashboard/administration/CreateUser";
+import CreatePermissions2 from "./pages/permissions/PermissionCreate";
+import CreateRole2 from "./pages/roles/RoleCreate";
+import CreateUser2 from "./pages/users/CreateUSer";
+import SearchUSer from "./pages/users/EditUser";
 
 const HomeHoc = Layout(DashboardHome);
 const UsersHoc = Layout(Users);
@@ -29,6 +33,10 @@ const CreatePermissionsHOC=Layout(CreatePermissions)
 const CreateRolesHOC=Layout(CreateRole)
 const ActionsTableHOC=Layout(AddPermission)
 const CreateUserHOC=Layout(CreateUser)
+const CreateUser2HOC=Layout(CreateUser2)
+const CreatePermissions2HOC=Layout(CreatePermissions2)
+const CreateRoles2HOC=Layout(CreateRole2)
+const SearchUSer2HOC=Layout(SearchUSer)
 
 
 
@@ -71,6 +79,12 @@ function App() {
           path: "/editManagement",
           element: <ManagementInsertForm />,
         },
+        
+        {
+          path: "/editManagement",
+          element: <ManagementInsertForm />,
+        },
+        
         {
           path: "/searchGrid",
           element: <SearchManagement />,
@@ -116,8 +130,16 @@ function App() {
       element: (<NonPermissionRoutes permissionNumber={13}><CreatePermissionsHOC/></NonPermissionRoutes>),
     },
     {
+      path: "/permission/CreatePermissions2",
+      element: < CreatePermissions2HOC />,
+    },
+    {
       path: "/dashboard/editPermissions",
       element: <CreatePermissionsHOC />,
+    },
+    {
+      path: "/dashboard/CreateRole2",
+      element: < CreateRoles2HOC />,
     },
     {
       path: "/dashboard/createRole",
@@ -133,7 +155,11 @@ function App() {
     },
     {
       path: "/dashboard/createUser",
-      element: < CreateUserHOC />,
+      element: < CreateUser2HOC />,
+    },
+    {
+      path: "/dashboard/searchUser",
+      element: < SearchUSer2HOC />,
     },
   ]
 

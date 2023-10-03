@@ -11,18 +11,26 @@ import styles from "../../styles";
 import { handleError, updateData } from "../../actions/fetchMethods";
 import { useLocation, } from "react-router-dom";
 import SelectInput from "../../components/formComponents/SelectInput";
+import { useEffect } from "react";
 
 const ManagementInsertForm = () => {
 
 const state =useLocation().state
+const{ dispatch}= useValue();
+
 
 const { register, handleSubmit, watch, reset,  formState: { errors } } = useForm({mode: 'onChange'});
 
-if(state){
-  reset(state)
-}
+// if(state){
+//   reset(state)
+// }
 
-    const{ dispatch}= useValue();
+useEffect(()=>{
+  reset(state)
+// eslint-disable-next-line react-hooks/exhaustive-deps
+},[])
+
+    
 
 
       const { data: conservanciesData, isLoading: conLoading } = useQuery(
@@ -75,9 +83,31 @@ const fetchStationByCounty = async ()=>{
         },
       );
 
-      const submit = (data)=>{
-        updateData('post', '/subcompartment', data, dispatch)
+      const defaults= ()=>{
+        if (state) {
+          const vv=state.county;
+          // const vv2='';
+          return  {vv};
+        } else {
+          const vv2='';
+          return {vv2};
+        }
+       
       };
+      // console.log(defaults())
+      const submit = (data)=>{
+        if(state){
+          console.log("executing update")
+          updateData('patch', `/subcompartment/${state.subcompartment_id}`, data, dispatch)
+        }
+        else{
+          updateData('post', '/subcompartment', data, dispatch)
+        }
+      };
+
+      // const submit = (data)=>{
+      //   updateData('post', '/subcompartment', data, dispatch)
+      // };
   return (
     <>
     <LoadingBackdrop />
@@ -155,21 +185,52 @@ const fetchStationByCounty = async ()=>{
               </div>
           )
         }
-        
+        {
+          !conLoading && (
+            <div className="col-span-12 sm:col-span-12 md:col-span-3 lg:col-span-4 
+            w-full  justify-center flex-col items-center px-4">
+        <SelectInput
+              label="county"
+              name="county"
+              register={register}
+              errors={errors}
+              ifRequired={true}
+              options={counties}
+              optionValue={'county_id'}
+              optionLabel={'county_name'}
+              />
+              </div>
+          )
+        }
+
         <div className=" col-span-12 sm:col-span-12 md:col-span-3 lg:col-span-4 
          w-full  justify-center flex-col items-center px-4">
-            <label className={`${styles.formLabels}`}>County</label>
-            <select 
-            defaultValue={{ label: "Select County", value: 'placeholder'}}
-            {...register('county', {required : true})}
+            <label className={`${styles.formLabels}`}>County{ state?.county} </label>
+    <select 
+    // defaultValue={ state?.county} 
+    // defaultValue={ state?.county}       
+            defaultValue={{ label: state?.county, value: state?.county_name}}
+            {...register('county2', {required : true})}
 
             className="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
+    {/* {(() => {
+  if (state) {
+    return <option  value={state.county_name}>{state.county_name}</option>;
+  } else {
+    return <option  value={''}>Select county</option>;
+  }
+})()} */}
+                {/* <option  value={state.county_name}>{state.county_name}</option> */}
                 {
-                    counties.map((item, index)=> (
-                        <option key={index} value={item.county_id}>{item.county_name}</option>
+                    counties.map((item)=> (
+                        <option key={item.county_id} value={item.county_id} 
+                        selected={item.county_id===state?.county}>{item.county_name}</option>
                     ))}
+                    
             </select>
         </div>
+        
+        
         
         <div className=" col-span-12 sm:col-span-12 md:col-span-3 lg:col-span-4 
          w-full  justify-center flex-col items-center px-4">
@@ -189,7 +250,7 @@ const fetchStationByCounty = async ()=>{
          w-full  justify-center flex-col items-center px-4">
          <NameInput
         placeholder='sub_compartment'
-        name="sub_compartment"
+        name="subcompartment"
         label='SubCompartment                                        '
         maximLength={50}
         minLength={5}

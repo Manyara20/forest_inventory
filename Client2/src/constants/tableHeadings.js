@@ -1,7 +1,7 @@
 export const tableHeadings = [
-    {title: 'Conservancy', name: 'conservancy'},
-    {title: 'County', name: 'county'},
-    {title: 'Station', name: 'forest_station'},
+    {title: 'Conservancy', name: 'conservancy_name'},
+    {title: 'County', name: 'county_name'},
+    {title: 'Station', name: 'station_name'},
     {title: 'Subcompartment', name: 'subcompartment'},
     {title: 'Species', name: 'species'},
     {title: 'Xcordinate', name: 'xcordinate'},
@@ -13,8 +13,12 @@ export const tableHeadings = [
     {title: 'MHT', name: 'mht'},
     {title: 'Age', name: 'age'},
     {title: 'Remarks', name: 'remarks'},
-    {title: 'Station Id', name: 'station_id'},
-    {title: 'County Id', name: 'county_id'},
-    {title: 'Station Name', name: 'station_name'},
-    {title: 'Conservancy', name: 'conservancy'},
+    
+]
+export const usertableHeading = [
+    {title: 'name', name: 'name'},
+    {title: 'email', name: 'email'},
+    {title: 'phone', name: 'phone'},
+    {title: 'Role', name: 'role'},
+   
 ]

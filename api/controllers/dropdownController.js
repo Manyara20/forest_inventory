@@ -1,6 +1,6 @@
 // import { conservancylist } from "../models/dropdownModels/dropdown"
 import createError from "../createError.js";
-import { conservancylist, countylist, stationlist } from "../models/dropdownModels/dropdown.js";
+import { conservancylist, countylist, permissionlist, stationlist } from "../models/dropdownModels/dropdown.js";
 import pool from "../models/postgres.js";
 
 
@@ -35,4 +35,14 @@ export const getStation = async (req, res, next)=>{
     } catch (error) {
         next(createError(500, "Something Went Wrong"))
     }
+}
+export const retrievepermissions =(req, res)=>{
+
+    pool.query(permissionlist, (err, data)=>{
+        if (err){
+            console.log(err)
+            res.status(500).json("Something Went Wrong. Try Later")
+        }
+        return res.status(200).json(data.rows)
+    })
 }

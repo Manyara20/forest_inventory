@@ -2,6 +2,7 @@
 import createError from '../createError.js'
 import pool from '../models/postgres.js'
 
+
 export const createPermission =(req, res, next)=>{
 
     const q ={
@@ -45,15 +46,8 @@ export const updatePermission=(req, res)=>{
         return res.status(200).json("Permission Updated Succesfully")
 
     })
-
-
-
-
 }
-
-
 //get permissions
-
 export const getPermissions=(req, res)=>{
 
     const q ='SELECT * FROM permissions'
