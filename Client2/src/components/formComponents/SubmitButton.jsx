@@ -8,7 +8,7 @@ const SubmitButton =(props)=>{
         <>
             <button
                 type={action}
-                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 mt-5 mb-5"
+                className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-3 px-20 border-b-4 border-blue-700 hover:border-blue-500 rounded"
                 onSubmit={handleSubmit}
             >
                 {text}

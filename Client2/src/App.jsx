@@ -22,6 +22,10 @@ import CreatePermissions2 from "./pages/permissions/PermissionCreate";
 import CreateRole2 from "./pages/roles/RoleCreate";
 import CreateUser2 from "./pages/users/CreateUSer";
 import SearchUSer from "./pages/users/EditUser";
+import Blog from "./pages/management/date";
+import ManagementInsertFormF from "./pages/management/management_insert_form";
+import Workflow_insert from "./pages/workflow/workflow";
+import Workflow_retrieve from "./pages/workflow/workflowsearch";
 
 const HomeHoc = Layout(DashboardHome);
 const UsersHoc = Layout(Users);
@@ -38,13 +42,17 @@ const CreatePermissions2HOC=Layout(CreatePermissions2)
 const CreateRoles2HOC=Layout(CreateRole2)
 const SearchUSer2HOC=Layout(SearchUSer)
 
+////
+const ManagementInsertFormHOC=Layout(ManagementInsertForm)
+const SearchManagementHOC=Layout(SearchManagement)
 
 
 function App() {
 
   const Layout =()=>{
     return(
-      < div className="h-full bg-gradient-to-br from-custom-blue overflow-hidden to-custom-blue via-middle-green text-white">
+      // h-full bg-gradient-to-br from-custom-blue overflow-hidden to-custom-blue via-middle-green text-white"
+      < div className="h-full bg-gradient-to-br from-custom-blue overflow-hidden to-custom-blue via-middle-green text-black ">
         < Navbar/>
         <div className="pt-16">
         < Outlet />
@@ -71,23 +79,22 @@ function App() {
           path: "/login",
           element: <Login />,
         },
+       
         {
-          path: "/ManagementInsertForm",
-          element: <ManagementInsertForm />,
+          path: "/Blog",
+          element: < Blog />,
         },
         {
-          path: "/editManagement",
-          element: <ManagementInsertForm />,
+          path: "/workflows",
+          element: < Workflow_insert />,
         },
-        
         {
-          path: "/editManagement",
-          element: <ManagementInsertForm />,
+          path: "/workflowsretrieve",
+          element: < Workflow_retrieve />,
         },
-        
         {
-          path: "/searchGrid",
-          element: <SearchManagement />,
+          path: "/editWorkflow",
+          element: <Workflow_insert />,
         },
         {
           path: "*",
@@ -101,6 +108,28 @@ function App() {
       path: "/dashboard",
       element: <HomeHoc />,
     },
+    /////
+    {
+      path: "/dashboard/ManagementInsertForm",
+      element: <ManagementInsertFormHOC />,
+    },
+    {
+      path: "/dashboard/ManagementInsertFormF",
+      element: <ManagementInsertFormHOC />,
+    },
+    
+    {
+      path: "/dashboard/editManagement",
+      element: <ManagementInsertFormHOC />,
+    },
+    
+    
+    {
+      path: "/dashboard/searchGrid",
+      element: <SearchManagementHOC />,
+    },
+
+    //////
     {
       path: "/dashboard/users",
       element: < UsersHoc />,
@@ -161,6 +190,7 @@ function App() {
       path: "/dashboard/searchUser",
       element: < SearchUSer2HOC />,
     },
+    
   ]
 
   const router = createBrowserRouter([

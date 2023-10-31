@@ -10,3 +10,6 @@ SELECT station_id,station_name FROM  station  WHERE county_id=$1;
 export const permissionlist = `
 SELECT id,name FROM  permissions  WHERE id>0;
 `
+
+export const specieslist = `
+SELECT species_id,speciesabbreviation,species_name FROM  species  WHERE species_id>0;`

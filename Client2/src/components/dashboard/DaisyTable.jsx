@@ -41,17 +41,31 @@ function DaisyTable({ rowData, headings, actions, linkActions}) {
                     to={action?.to}
                     state={dataRow}
                   >
-                    {action?.label}
+                    {action?.label} 
                   </Link>
                 )))}
                 
+
+                {/* {actions && (actions?.map((action, actionIndex) => (
+                  <Link
+                    key={actionIndex}
+                    className=" bg-amber-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mr-2 no-underline"
+                    to={action?.to}
+                    state={dataRow}
+                  >
+                    {action?.label}{dataRow?.subcompartment_id}
+                  </Link>
+                )))} */}
+                
+
+
                 {actions.map((action, actionIndex) => (
                   <button
                     key={actionIndex}
                     className=" bg-amber-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mr-2"
                     onClick={() => action.onClick(dataRow)}
                   >
-                    {action.label}
+                    {action.label}{dataRow?.subcompartment_id}
                   </button>
                 ))}
               </td>

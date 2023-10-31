@@ -1,4 +1,4 @@
-import { useForm,Controller } from "react-hook-form"
+import { useForm } from "react-hook-form"
 import SubmitButton from '../../components/formComponents/SubmitButton';
 import LoadingBackdrop from '../../components/globalComponents/LoadingBackdrop'
 import NotificationToast from '../../components/globalComponents/NotificationToast'
@@ -11,29 +11,16 @@ import styles from "../../styles";
 import { handleError, updateData } from "../../actions/fetchMethods";
 import { useLocation, } from "react-router-dom";
 import SelectInput from "../../components/formComponents/SelectInput";
-import { useEffect,useState } from "react";
+import { useEffect } from "react";
 import DateField from "../../components/formComponents/DateField";
-import DatePicker from "react-datepicker";
-// import "./date.css";
 
 const ManagementInsertForm = () => {
-  const [startDate, setStartDate] = useState(new Date());
-  const datefunction=(val)=>{
-    let dates3=val.getMonth() + 1 //jasc
-
-    const datesss=val.getFullYear() + "-" + dates3+ "-" + val.getDate() 
-    console.log(datesss)
-    return  datesss
-
-  }
-
-  new Date().toLocaleTimeString() + " " + new Date().getSeconds() 
 
 const state =useLocation().state
 const{ dispatch}= useValue();
 
 
-const { register, handleSubmit,control, watch, reset, setValue , formState: { errors } } = useForm({mode: 'onChange'});
+const { register, handleSubmit, watch, reset,  formState: { errors } } = useForm({mode: 'onChange'});
 
 // if(state){
 //   reset(state)
@@ -60,22 +47,6 @@ useEffect(()=>{
           }
         },
       );
-
-      const { data: speciesData } = useQuery(
-        ['species'],
-        async () => {
-          try {
-            const res = await newRequest.get('/species'); 
-            return res.data;
-          } catch (error) {
-            console.error('Error:', error);
-            handleError(dispatch, error); 
-            throw error; 
-          }
-        },
-      );
- 
- 
       
       
 
@@ -112,36 +83,6 @@ const fetchStationByCounty = async ()=>{
         },
         },
       );
-      const plantingYear = watch('planting_year'); 
-      const watchConservancy = watch('conservancy')
-      const watchCounty = watch('county')
-
-      const calculateAge = (startYear) => {
-        const currentYear = new Date().getFullYear();
-        return currentYear - parseInt(startYear);
-      };
-
-      useEffect(() => {
-        setValue('forest_station',null)
-      }, [watchCounty]);
-
-      useEffect(() => {
-        setValue('county',null)
-        setValue('forest_station',null)
-      }, [watchConservancy]);
-
-      useEffect(()=>{
-        reset(state)
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      },[])
-      useEffect(()=>{
-        if(plantingYear){
-          setValue('age', calculateAge(plantingYear), { shouldValidate: true })
-        }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      },[plantingYear])
-
-      
 
       const defaults= ()=>{
         if (state) {
@@ -161,7 +102,6 @@ const fetchStationByCounty = async ()=>{
           updateData('patch', `/subcompartment/${state.subcompartment_id}`, data, dispatch)
         }
         else{
-          console.log(data)
           updateData('post', '/subcompartment', data, dispatch)
         }
       };
@@ -290,45 +230,17 @@ const fetchStationByCounty = async ()=>{
                     
             </select>
         </div>
-
-        <div className=" col-span-12 sm:col-span-12 md:col-span-3 lg:col-span-4 
-         w-full  justify-center flex-col items-center px-4">
-            <label className={`${styles.formLabels}`}>Countyeeee{ state?.county} </label>
-            <select 
-            defaultValue={{ label: "Select County", value: 'placeholder'}}
-            {...register('county', {required : true})}
-            className="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
-                 <option value=''>{'Select County'}</option>
-                {
-                    counties.map((item, index)=> (
-                        <option key={index} value={item.county_id}>{item.county_name}</option>
-                    ))}
-            </select>
-    
-        </div>
-        
         
         
         
         <div className=" col-span-12 sm:col-span-12 md:col-span-3 lg:col-span-4 
          w-full  justify-center flex-col items-center px-4">
             <label className={`${styles.formLabels}`}>Forest Station</label>
-            {/* <select 
-            defaultValue={{ label: "Select Station", value: 'placeholder'}}
-            {...register('station', {required : true})}
-
-            className="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
-                {
-                    station.map((item, index)=> (
-                        <option key={index} value={item.station_id}>{item.station_name}</option>
-                    ))}
-            </select> */}
             <select 
             defaultValue={{ label: "Select Station", value: 'placeholder'}}
             {...register('station', {required : true})}
 
             className="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
-                 <option value=''>{'Select Forest Station'}</option>
                 {
                     station.map((item, index)=> (
                         <option key={index} value={item.station_id}>{item.station_name}</option>
@@ -356,8 +268,8 @@ const fetchStationByCounty = async ()=>{
             className="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
                 <option>Select Species</option>
                 {
-                    speciesData?.map((item, index)=> (
-                        <option key={index} value={item.species_id}>{item.species_name}</option>
+                    conservanciesData?.map((item, index)=> (
+                        <option key={index} value={item.conservancy_id}>{item.conservancy_name}</option>
                     ))}
             </select>
         </div>)}
@@ -478,29 +390,15 @@ const fetchStationByCounty = async ()=>{
         
         <div className=" col-span-12 sm:col-span-12 md:col-span-4 lg:col-span-4 
          w-full  justify-center flex-col items-center px-4">
-          <label className={`${styles.formLabels}`}>Update Date</label>
-         <Controller
-name={"birthDate"}
-control={control}
-defaultValue={new Date()}
-// rules={{ validate: { isOlderThan2Years } ,required: true}}
-        
-render={({ field: {onChange,value} }) => {
-  return (
-      
-    <DatePicker
-    disableFuture    
-      // onChange={onChange}
-      // selected={value}
-      // {...register(name)}
-      selected={startDate}
-      onChange={(date) => setStartDate(date)}    
-      placeholderText="Enter your birth date"     
-    />
-  );
-}}
-/>
-<input type="text" value={datefunction(startDate)} {...register('birthDate')}/>
+         <DateField
+        placeholder='remarks1'
+        name="remarks1"
+        label='Remarks1                                        '
+        maximLength={500}
+        minLength={10}
+        ifRequired={true}
+        errors={errors}
+        register={register}/>
         </div>
      {/* ////// */}
         <div className=" col-span-12 sm:col-span-12 md:col-span-4 lg:col-span-4 w-full flex justify-center flex-col items-center px-2">
@@ -509,7 +407,8 @@ render={({ field: {onChange,value} }) => {
         handleSubmit={null}
         text='Save'
         /> 
-               </div> 
+               </div>
+    
        
             
         </div>

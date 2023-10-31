@@ -4,7 +4,7 @@ import NotificationToast from '../../components/globalComponents/NotificationToa
 import { useValue } from "../../context/ContextProvider";
 import NameInput from "../../components/formComponents/NameInput";
 import { useQuery } from "@tanstack/react-query";
-import { fetchDataReactQuerry } from "../../actions/fetchMethods";
+import { deleteData, fetchDataReactQuerry, updateData } from "../../actions/fetchMethods";
 import { useMemo } from "react";
 import { tableHeadings } from "../../constants/tableHeadings";
 import DaisyTable from "../../components/dashboard/DaisyTable";
@@ -31,16 +31,22 @@ const SearchManagement = () => {
 
     const memoizedSearchResults = useMemo(() => searchResults, [searchResults]);
 
-    const log =()=>{
-      console.log("I am")
+    // const log =()=>{
+    //   console.log("I am")
+    // }
+    // const handleupdate =(val)=>{
+    //   console.log(val)
+    // }
+    const handleDelete =(val)=>{   
+      const id=val?.subcompartment_id    
+      updateData('delete', `/deletemanagement/${id}`, val, dispatch)
+      window.location.reload(true);
+      // updateData('patch', `/deletemanagement/${state.subcompartment_id}`, data, dispatch)
+   
     }
-    const handleupdate =(val)=>{
-      console.log(val)
-    }
-    
 
-    const actions = useMemo(()=>[
-        {label:"Delete", onClick: log},
+     const deletes = useMemo(()=>[
+        {label:"Delete", onClick: handleDelete},
     ],[])
 
     // const linkActions = useMemo(()=>[
@@ -50,7 +56,7 @@ const SearchManagement = () => {
     // ]);
     
     const linkActions = useMemo(()=>[
-      {label:"Edit", to: '/editManagement'},
+      {label:"Edit", to: '/dashboard/editManagement'},
     ],[])
 
 
@@ -94,7 +100,7 @@ const SearchManagement = () => {
             </form> 
         </div>
         <div>
-         < DaisyTable rowData={memoizedSearchResults} headings={memoizedHeadings} actions={actions} linkActions={linkActions} />
+         < DaisyTable rowData={memoizedSearchResults} headings={memoizedHeadings} actions={deletes} linkActions={linkActions} />
         </div>
         </div>
   )
