@@ -2,11 +2,22 @@ import createError from "../../createError.js";
 import { deletesubcompartment, searchSubcompartment, storeSubcompartment, updateSubcompartment } from "../../models/plantationmgtModels/subcompartmentModels.js";
 import pool from "../../models/postgres.js";
 
+
 const log = (message)=>{
     return console.log(message)
 }
+const datefunction=(val)=>{
+    let dates3=val.getMonth() + 1 //jasc
+    const datesss=val.getFullYear() + "-" + dates3+ "-" + val.getDate() 
+    console.log(datesss)
+    return  datesss
+
+  }
 export const management_insert = (req, res, next)=>{
-    const dates=req.body.birthDate
+    let date=req.body.received_date
+    
+    date = date.substring(0,10).split('-')
+    let dates = date[1] + '-' + date[2] + '-' + date[0]
     // const day=dates.getDate()
     // const month=dates.getMonth()
     // const year=dates.getFullYear()
@@ -105,7 +116,7 @@ export const management_insert = (req, res, next)=>{
         console.log(req.params.id)
         console.log('req.params.id')
         console.log(req.body.received_date)
-        const dates=req.body.birthDate
+        const dates=req.body.received_date
         console.log(dates)
         let volume=0;
         let thin1=0;

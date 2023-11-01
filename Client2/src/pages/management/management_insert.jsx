@@ -14,10 +14,15 @@ import SelectInput from "../../components/formComponents/SelectInput";
 import { useEffect,useState } from "react";
 import DateField from "../../components/formComponents/DateField";
 import DatePicker from "react-datepicker";
+
 // import "./date.css";
 
 const ManagementInsertForm = () => {
   const [startDate, setStartDate] = useState(new Date());
+  const [defaultcountyid, setdefaultcountyid] = useState("");
+  const [defaultcountyname, setdefaultcountyname] = useState("Select County");
+  const [defaultstationid, setdefaultstationid] = useState("");
+  const [defaultstationname, setdefaultstationname] = useState("Select Station");
   const datefunction=(val)=>{
     let dates3=val.getMonth() + 1 //jasc
 
@@ -115,6 +120,7 @@ const fetchStationByCounty = async ()=>{
       const plantingYear = watch('planting_year'); 
       const watchConservancy = watch('conservancy')
       const watchCounty = watch('county')
+      const receivedate = watch('received_date'); 
 
       const calculateAge = (startYear) => {
         const currentYear = new Date().getFullYear();
@@ -130,16 +136,46 @@ const fetchStationByCounty = async ()=>{
         setValue('forest_station',null)
       }, [watchConservancy]);
 
+      useEffect(() => {
+        if(state){
+        setValue('county',state?.county_name)
+        setValue('forest_station',state?.station_name)
+        setdefaultcountyid(()=>state?.county_id)
+        setdefaultcountyname(()=>state?.county_name)
+        setdefaultstationid(()=>state?.station_id)
+        setdefaultstationname(()=>state?.station_name)
+        setValue('county',state?.county_id)
+        setValue('forest_station',state?.station_id)
+        
+      }
+      }, [watchConservancy]);
+
       useEffect(()=>{
         reset(state)
       // eslint-disable-next-line react-hooks/exhaustive-deps
       },[])
       useEffect(()=>{
-        if(plantingYear){
+        if(state){
           setValue('age', calculateAge(plantingYear), { shouldValidate: true })
         }
       // eslint-disable-next-line react-hooks/exhaustive-deps
       },[plantingYear])
+
+      useEffect(()=>{
+        // const [startDate, setStartDate] = useState(new Date());
+        if(state){
+          // console.log('useefeect loading')
+          // setStartDate(()=> new Date())
+          
+
+        }else{
+          // setStartDate(()=> new Date());
+
+        }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      },[])
+
+      
 
       
 
@@ -246,59 +282,17 @@ const fetchStationByCounty = async ()=>{
               </div>
           )
         }
-        {
-          !conLoading && (
-            <div className="col-span-12 sm:col-span-12 md:col-span-3 lg:col-span-4 
-            w-full  justify-center flex-col items-center px-4">
-        <SelectInput
-              label="county"
-              name="county"
-              register={register}
-              errors={errors}
-              ifRequired={true}
-              options={counties}
-              optionValue={'county_id'}
-              optionLabel={'county_name'}
-              />
-              </div>
-          )
-        }
+    
+
+        
 
         <div className=" col-span-12 sm:col-span-12 md:col-span-3 lg:col-span-4 
          w-full  justify-center flex-col items-center px-4">
-            <label className={`${styles.formLabels}`}>County{ state?.county} </label>
-    <select 
-    // defaultValue={ state?.county} 
-    // defaultValue={ state?.county}       
-            defaultValue={{ label: state?.county, value: state?.county_name}}
-            {...register('county2', {required : true})}
-
-            className="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
-    {/* {(() => {
-  if (state) {
-    return <option  value={state.county_name}>{state.county_name}</option>;
-  } else {
-    return <option  value={''}>Select county</option>;
-  }
-})()} */}
-                {/* <option  value={state.county_name}>{state.county_name}</option> */}
-                {
-                    counties.map((item)=> (
-                        <option key={item.county_id} value={item.county_id} 
-                        selected={item.county_id===state?.county}>{item.county_name}</option>
-                    ))}
-                    
-            </select>
-        </div>
-
-        <div className=" col-span-12 sm:col-span-12 md:col-span-3 lg:col-span-4 
-         w-full  justify-center flex-col items-center px-4">
-            <label className={`${styles.formLabels}`}>Countyeeee{ state?.county} </label>
+            <label className={`${styles.formLabels}`}>Countyeeeettt{ state?.county_name} </label>
             <select 
-            defaultValue={{ label: "Select County", value: 'placeholder'}}
             {...register('county', {required : true})}
             className="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
-                 <option value=''>{'Select County'}</option>
+                
                 {
                     counties.map((item, index)=> (
                         <option key={index} value={item.county_id}>{item.county_name}</option>
@@ -312,7 +306,7 @@ const fetchStationByCounty = async ()=>{
         
         <div className=" col-span-12 sm:col-span-12 md:col-span-3 lg:col-span-4 
          w-full  justify-center flex-col items-center px-4">
-            <label className={`${styles.formLabels}`}>Forest Station</label>
+            <label className={`${styles.formLabels}`}>Forest Station{state?.station_name}</label>
             {/* <select 
             defaultValue={{ label: "Select Station", value: 'placeholder'}}
             {...register('station', {required : true})}
@@ -324,11 +318,11 @@ const fetchStationByCounty = async ()=>{
                     ))}
             </select> */}
             <select 
-            defaultValue={{ label: "Select Station", value: 'placeholder'}}
-            {...register('station', {required : true})}
+           defaultValue={{ label:defaultstationid, value: defaultstationname}}
+            {...register('forest_station', {required : true})}
 
             className="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
-                 <option value=''>{'Select Forest Station'}</option>
+                 {/* <option value=''>{'Select Forest Station'}</option> */}
                 {
                     station.map((item, index)=> (
                         <option key={index} value={item.station_id}>{item.station_name}</option>
@@ -480,9 +474,9 @@ const fetchStationByCounty = async ()=>{
          w-full  justify-center flex-col items-center px-4">
           <label className={`${styles.formLabels}`}>Update Date</label>
          <Controller
-name={"birthDate"}
+name={"received_date"}
 control={control}
-defaultValue={new Date()}
+defaultValue={startDate}
 // rules={{ validate: { isOlderThan2Years } ,required: true}}
         
 render={({ field: {onChange,value} }) => {
@@ -490,17 +484,18 @@ render={({ field: {onChange,value} }) => {
       
     <DatePicker
     disableFuture    
-      // onChange={onChange}
-      // selected={value}
-      // {...register(name)}
-      selected={startDate}
-      onChange={(date) => setStartDate(date)}    
+      onChange={onChange}
+      selected={value}
+      // dateFormat="yyyy-mm-dd"
+      // {...register('birthDate')}
+      // selected={startDate}
+      // onChange={(date) => setStartDate(date)}    
       placeholderText="Enter your birth date"     
     />
   );
 }}
 />
-<input type="text" value={datefunction(startDate)} {...register('birthDate')}/>
+{/* <input type="text" value={datefunction(startDate)} {...register('birthDate')}/> */}
         </div>
      {/* ////// */}
         <div className=" col-span-12 sm:col-span-12 md:col-span-4 lg:col-span-4 w-full flex justify-center flex-col items-center px-2">

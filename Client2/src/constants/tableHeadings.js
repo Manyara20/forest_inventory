@@ -13,6 +13,7 @@ export const tableHeadings = [
     {title: 'MHT', name: 'mht'},
     {title: 'Age', name: 'age'},
     {title: 'Remarks', name: 'remarks'},
+    {title: 'Receive Date', name: 'received_date'},
     
 ]
 export const usertableHeading = [
