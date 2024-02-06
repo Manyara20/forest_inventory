@@ -288,7 +288,7 @@ const fetchStationByCounty = async ()=>{
 
         <div className=" col-span-12 sm:col-span-12 md:col-span-3 lg:col-span-4 
          w-full  justify-center flex-col items-center px-4">
-            <label className={`${styles.formLabels}`}>Countyeeeettt{ state?.county_name} </label>
+            <label className={`${styles.formLabels}`}>County</label>
             <select 
             {...register('county', {required : true})}
             className="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
@@ -306,7 +306,7 @@ const fetchStationByCounty = async ()=>{
         
         <div className=" col-span-12 sm:col-span-12 md:col-span-3 lg:col-span-4 
          w-full  justify-center flex-col items-center px-4">
-            <label className={`${styles.formLabels}`}>Forest Station{state?.station_name}</label>
+            <label className={`${styles.formLabels}`}>Forest Station</label>
             {/* <select 
             defaultValue={{ label: "Select Station", value: 'placeholder'}}
             {...register('station', {required : true})}
@@ -490,7 +490,7 @@ render={({ field: {onChange,value} }) => {
       // {...register('birthDate')}
       // selected={startDate}
       // onChange={(date) => setStartDate(date)}    
-      placeholderText="Enter your birth date"     
+      placeholderText="Latest update date"     
     />
   );
 }}

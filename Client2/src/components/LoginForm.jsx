@@ -27,7 +27,7 @@ const LoginForm = () => {
     <EmailInput
          placeholder='Email'
          register={register}
-         label="KFS Email"
+         label="Staff Email"
          name='email'
          maximLength={50}
          ifRequired={true}

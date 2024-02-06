@@ -1,28 +1,52 @@
+import React from 'react';
+
 
 const Navbar = () => {
-
   return (
-    <div className=" w-full p-[20px] flex items-center justify-between">
-      <div className=" flex items-center font-bold justify-between">
-        <img src="logo.svg" alt="" />
-        <span className="text-white font-extrabold">KFS Admin</span>
+    <div className="w-full px-6 py-4 flex items-center justify-between bg-gray-800">
+      {/* Logo and Title */}
+      <div className="flex items-center font-bold text-white">
+        <img src="/logo.png" alt="Logo" className="w-8 h-8 mr-2" />
+        <span className="text-white font-extrabold text-lg">Dashboard</span>
       </div>
-      <div className=" flex items-center gap-[20px]">
-        <img src="/search.svg" alt="" className="items-center font-bold hidden sm:flex " />
-        <img src="/app.svg" alt="" className=" flex items-center font-bold" />
-        <img src="/expand.svg" alt="" className=" flex items-center font-bold" />
-        <div className=" relative">
-          <img src="/notifications.svg" alt="" />
-          <span className=" bg-red-400 text-white w-[16px] h-[16px] rounded-[50%] absolute top-[10px] right-[-10px] flex items-center justify-center text-[12px]">1</span>
+
+      {/* Navigation Icons */}
+      <div className="flex items-center gap-4">
+        {/* Search Icon (visible on larger screens) */}
+        <img
+          src="/search.svg"
+          alt="Search"
+          className="hidden sm:block w-6 h-6 text-white cursor-pointer"
+        />
+
+        {/* Other Icons */}
+        <img src="/app.svg" alt="App" className="w-6 h-6 text-white cursor-pointer" />
+        <img src="/expand.svg" alt="Expand" className="w-6 h-6 text-white cursor-pointer" />
+
+        {/* Notifications */}
+        <div className="relative">
+          <img src="/notifications.svg" alt="Notifications" className="w-6 h-6 cursor-pointer" />
+          <span className="bg-red-400 text-white w-4 h-4 rounded-full absolute top-1 right-0 flex items-center justify-center text-xs">
+            1
+          </span>
         </div>
-        <div className=" flex items-center gap-[10px]">
-          <img className=" w-[26px] h-[-26] rounded-[50%] object-cover"
+
+        {/* User Info */}
+        <div className="flex items-center gap-2">
+          <img
+            className="w-8 h-8 rounded-full object-cover"
             src="https://images.pexels.com/photos/11038549/pexels-photo-11038549.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"
-            alt=""
+            alt="User"
           />
-          <span className=" font-extrabold text-white">Jane</span>
+          <span className="font-extrabold text-white">Jane</span>
         </div>
-        <img src="/settings.svg" alt="" className=" w-[26px] h-[-26] rounded-[50%] object-cover" />
+
+        {/* Settings Icon */}
+        <img
+          src="/settings.svg"
+          alt="Settings"
+          className="w-6 h-6 rounded-full object-cover cursor-pointer"
+        />
       </div>
     </div>
   );
