@@ -9,11 +9,48 @@ export const menu = [
           url: "/",
           icon: "/home.svg",
         },
+        
         {
           id: 2,
           title: "Profile",
           url: "/users/1",
           icon: "/user.svg",
+        },
+      ],
+    },
+    {
+      id: 3,
+      title: "general",
+      listItems: [
+        {
+          id: 1,
+          title: "Management",
+          url: "/",
+          icon: "/management-forest.svg",
+        },
+        {
+          id: 2,
+          title: "Assessment",
+          url: "/",
+          icon: "/note.svg",
+        },
+        {
+          id: 3,
+          title: "Allocation",
+          url: "/",
+          icon: "/form.svg",
+        },
+        {
+          id: 4,
+          title: "Valuation",
+          url: "/",
+          icon: "/calendar.svg",
+        },
+        {
+          id: 5,
+          title: "Payments",
+          url: "/",
+          icon: "/calendar.svg",
         },
       ],
     },
@@ -53,36 +90,7 @@ export const menu = [
         },
       ],
     },
-    {
-      id: 3,
-      title: "general",
-      listItems: [
-        {
-          id: 1,
-          title: "Elements",
-          url: "/",
-          icon: "/element.svg",
-        },
-        {
-          id: 2,
-          title: "Notes",
-          url: "/",
-          icon: "/note.svg",
-        },
-        {
-          id: 3,
-          title: "Forms",
-          url: "/",
-          icon: "/form.svg",
-        },
-        {
-          id: 4,
-          title: "Calendar",
-          url: "/",
-          icon: "/calendar.svg",
-        },
-      ],
-    },
+    
     {
       id: 4,
       title: "Maintenance",
@@ -113,9 +121,15 @@ export const menu = [
         },
         {
           id: 2,
-          title: "Logs",
+          title: "Tables",
           url: "/",
           icon: "/log.svg",
+        },
+        {
+          id: 3,
+          title: "Maps",
+          url: "/",
+          icon: "/note.svg",
         },
       ],
     },

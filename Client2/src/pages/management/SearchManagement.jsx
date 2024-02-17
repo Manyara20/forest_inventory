@@ -64,13 +64,13 @@ const SearchManagement = () => {
       refetch(); 
     };
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-blue-500 overflow-y-auto h-32">
     <LoadingBackdrop />
     <NotificationToast />
     <div className="mx-2 border-4 rounded-2xl bg-white py-2 my-2 w-11/12">
         <form onSubmit={handleSubmit(submit)}>
             <div className="grid grid-cols-12 gap-1 items-center justify-center">
-            <div className=" col-span-12 sm:col-span-12 md:col-span-4 lg:col-span-4 w-full  justify-left flex-col items-center px-4">
+            <div className="col-span-12 sm:col-span-12 md:col-span-4 lg:col-span-4 w-full  justify-left flex-col items-center px-4">
             <NameInput
               placeholder='Enter Forest Station'
               name="station"
